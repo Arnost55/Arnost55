@@ -1,5 +1,5 @@
 # 💫 About Me:
-Currently working on Syncing app<br>Starting Content Creator<br>Live Tech<br>
+Currently working on Syncing app<br>Starting Content Creator<br>Love Tech<br>
 
 
 ## 🌐 Socials:

@@ -1,5 +1,5 @@
 # 💫 About Me:
-Currently working on Syncing app<br>Starting Content Creator<br>Love Tech<br>
+Currently working on a custom 3D printer for [Blueprint](https://blueprint.hackclub.com/projects/8026)<br>Starting Content Creator<br>Love Tech<br>
 
 
 ## 🌐 Socials:

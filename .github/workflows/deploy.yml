@@ -48,7 +48,8 @@ jobs:
       - name: Deploy to GitHub Pages (Arnost55 repo)
         uses: peaceiris/actions-gh-pages@v4
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}
+          persist-credentials: false
+          github_token: ${{ secrets.ACCESS_TOKEN }}
           personal_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           publish_dir: ./dist
           publish_branch: portfolio

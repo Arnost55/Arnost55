@@ -1,6 +1,6 @@
 import { writeFileSync } from 'fs';
 
-const baseUrl = 'https://arnost55.github.io/portfolio';
+const baseUrl = 'https://arnost.kernelkicks.dev';
 
 const staticPages = [
   '',

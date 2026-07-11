@@ -92,7 +92,7 @@ export function Contact() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Card variant="elevated" padding="lg" className="h-full sticky top-24">
+            <Card variant="elevated" padding="lg" className="h-full">
               <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">Contact Information</h3>
 
               <div className="space-y-6 mb-8">

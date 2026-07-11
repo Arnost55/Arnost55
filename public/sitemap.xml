@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://arnost55.github.io/portfolio</loc>
+    <loc>https://arnost.kernelkicks.dev</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://arnost55.github.io/portfolio#about</loc>
+    <loc>https://arnost.kernelkicks.dev#about</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://arnost55.github.io/portfolio#skills</loc>
+    <loc>https://arnost.kernelkicks.dev#skills</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://arnost55.github.io/portfolio#projects</loc>
+    <loc>https://arnost.kernelkicks.dev#projects</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://arnost55.github.io/portfolio#content</loc>
+    <loc>https://arnost.kernelkicks.dev#content</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://arnost55.github.io/portfolio#education</loc>
+    <loc>https://arnost.kernelkicks.dev#education</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://arnost55.github.io/portfolio#languages</loc>
+    <loc>https://arnost.kernelkicks.dev#languages</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://arnost55.github.io/portfolio#contact</loc>
+    <loc>https://arnost.kernelkicks.dev#contact</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

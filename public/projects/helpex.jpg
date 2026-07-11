@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="helpex" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4f46e5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#helpex)"/>
+  <text x="400" y="200" font-family="system-ui, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle">HelpeX</text>
+  <text x="400" y="260" font-family="system-ui, sans-serif" font-size="24" fill="white" text-anchor="middle" opacity="0.9">Rust Automation Agent</text>
+  <text x="400" y="340" font-family="system-ui, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.7">Project Preview Image</text>
+</svg>

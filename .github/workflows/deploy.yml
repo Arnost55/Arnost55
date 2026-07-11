@@ -31,8 +31,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Copy CNAME file
-        run: cp ../Arnost55/CNAME ./dist/CNAME 2>/dev/null || echo "No CNAME file found"
+      - name: Create CNAME file
+        run: echo "arnost.kernelkicks.dev" > ./dist/CNAME
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

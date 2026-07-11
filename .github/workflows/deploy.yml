@@ -49,7 +49,7 @@ jobs:
           personal_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           publish_dir: ./dist
           publish_branch: portfolio
-          destination_dir: /
+          destination_dir: .
           commit_message: "Deploy portfolio to GitHub Pages"
           user_name: "github-actions[bot]"
           user_email: "github-actions[bot]@users.noreply.github.com"

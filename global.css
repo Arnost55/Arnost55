@@ -1,0 +1,368 @@
+/* Arc Browser Design System Tokens for NativeWind v4 */
+/* Frosted glass over peach-coral gradient: editorial warmth, squircle-soft geometry */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ─── Surface ───
+     * Peach-cream canvas. Cards float above as bright white frosted panes;
+     * the warm tier holds hero meta panels and sidebar washes. */
+    --bg: #fdf3ec;               /* Peach Cream — the calm canvas, barely warm */
+    --surface: #ffffff;          /* Frosted Pane — opaque approximation of glass */
+    --surface-warm: #fff4ea;     /* Warm Inset — hero meta, sidebar pill background */
+
+    /* ─── Foreground ───
+     * Three ink tiers from DESIGN.md §2 — never pure black, always
+     * slightly warm so type sits inside the peach atmosphere. */
+    --fg: #1a1a1f;               /* Ink Primary — body text, headings */
+    --fg-2: #54545a;             /* Ink Secondary — sidebar tabs at rest, sub-headings */
+    --muted: #8c8c93;            /* Ink Muted — captions, URL bar, metadata */
+    --meta: var(--muted);        /* alias — same muted tier suffices for metadata */
+
+    /* ─── Border ───
+     * Borders are rare in Arc — DESIGN.md prefers tinted background
+     * washes. When present, they're hairline-thin and warm-toned. */
+    --border: #ece5db;           /* Warm hairline — card edge over peach cream */
+    --border-soft: #f6f0e8;      /* Softer inner separator — barely visible row line */
+
+    /* ─── Accent ───
+     * Arc Coral — the marketing brand color used on arc.net. Components
+     * compose the Sunset gradient (peach #ff7e5f → coral #feb47b) inline
+     * for primary CTAs; --accent itself stays a single resolvable color
+     * so color-mix derivations work everywhere. */
+    --accent: #ff5f5f;
+    --accent-on: #ffffff;
+    --accent-hover: color-mix(in oklab, var(--accent), black 8%);
+    --accent-active: color-mix(in oklab, var(--accent), black 14%);
+
+    /* ─── Semantic ───
+     * DESIGN.md §2 semantic palette — mid-saturated to harmonize with
+     * the warm atmosphere, not clinical Tailwind reds. */
+    --success: #48bb78;
+    --warn: #f6ad55;
+    --danger: #f56565;
+
+    /* ─── Gradients ─── */
+    --gradient-sunset: linear-gradient(135deg, #ff7e5f, #feb47b);
+    --gradient-twilight: linear-gradient(135deg, #7f5af0, #e84393);
+    --gradient-aurora: linear-gradient(135deg, #16f2b3, #0db4f7);
+
+    /* ─── Glass surfaces ─── */
+    --glass-light: rgba(255, 255, 255, 0.7);
+    --glass-medium: rgba(255, 255, 255, 0.5);
+    --glass-heavy: rgba(255, 255, 255, 0.85);
+    --glass-dark: rgba(20, 20, 25, 0.6);
+  }
+
+  .dark {
+    --bg: #1a1a1f;               /* ink primary as canvas */
+    --surface: #1e1e24;          /* dark frosted */
+    --surface-warm: #25201d;
+    --fg: #fafafa;               /* ink inverse */
+    --fg-2: #b8b8be;
+    --muted: #8c8c93;
+    --border: #2d2a26;
+    --border-soft: #3a3530;
+    --glass-light: rgba(30, 30, 36, 0.7);
+    --glass-medium: rgba(30, 30, 36, 0.5);
+    --glass-heavy: rgba(30, 30, 36, 0.85);
+    --glass-dark: rgba(10, 10, 12, 0.6);
+  }
+
+  /* ─── Typography ───
+   * Inter for product chrome; Argent CF (editorial display serif)
+   * only for marketing — when Arc speaks publicly, it speaks in serif.
+   * Berkeley Mono for code, URL bar, devtools. */
+  --font-display: "Argent CF", "Source Serif Pro", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "Berkeley Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  /* Type scale — DESIGN.md §3. 72px hero, 40px section, 32px h1,
+   * 22px h2, 18px featured body, 15px body, 13px tab/code, 12px caption.
+   * Tabs render small (13px) so a long sidebar of 30+ tabs stays scannable. */
+  --text-xs: 12px;               /* Caption — URL bar protocol, metadata */
+  --text-sm: 13px;               /* Tab Title / Code */
+  --text-base: 15px;             /* Body — settings prose, tooltips */
+  --text-lg: 18px;               /* Featured body — intro paragraphs */
+  --text-xl: 22px;               /* Page H2 — sub-section */
+  --text-2xl: 32px;              /* Page H1 — settings, command bar header */
+  --text-3xl: 40px;              /* Section Heading — Argent CF marketing */
+  --text-4xl: 72px;              /* Marketing Hero — Argent CF editorial display */
+
+  --leading-body: 1.55;          /* Generous body line-height — long-form reading */
+  --leading-tight: 1.05;         /* Hero line-height — Argent CF squeezed tight */
+  --tracking-display: -0.03em;   /* ≈ -2.16px at 72px — editorial density */
+
+  /* ─── Spacing ───
+   * 4px base. Pane internal padding lands on space-6 (24px) per
+   * DESIGN.md §5. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+
+  /* Section rhythm — generous editorial pacing on marketing pages. */
+  --section-y-desktop: 96px;
+  --section-y-tablet: 64px;
+  --section-y-phone: 48px;
+
+  /* ─── Radius ───
+   * Squircle-soft: 8px on tabs/chips, 12px on buttons & command bar,
+   * 16px on cards/panes, 9999px on space pills. Every edge softened. */
+  --radius-sm: 8px;              /* Tabs / chips */
+  --radius-md: 12px;             /* Buttons / command bar input */
+  --radius-lg: 16px;             /* Cards / panes */
+  --radius-pill: 9999px;         /* Spaces, bookmarks folder pills */
+
+  /* ─── Elevation ───
+   * Single long-throw soft shadow — DESIGN.md §1 calls out this exact
+   * value as the signature card lift over the gradient backdrop. */
+  --elev-flat: none;
+  --elev-ring: 0 0 0 1px var(--border);
+  --elev-raised: 0 8px 32px rgba(0, 0, 0, 0.08);
+
+  /* ─── Focus ring ───
+   * 4px coral halo at 20% alpha — DESIGN.md §4 specifies this exact
+   * focus treatment for the command bar input. Wider and softer than
+   * the schema default, in keeping with Arc's frosted-glass language. */
+  --focus-ring: 0 0 0 4px color-mix(in oklab, var(--accent), transparent 80%);
+
+  /* ─── Motion ───
+   * Apple-style spring curve from DESIGN.md §6. 200ms for hover,
+   * 320ms for tab create/close — Arc's motion is spring, not bounce. */
+  --motion-fast: 200ms;
+  --motion-base: 320ms;
+  --ease-standard: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* ─── NativeWind v4 utility mappings ───
+ * These map Tailwind utilities to our CSS custom properties */
+
+@layer utilities {
+  /* Colors */
+  .bg-bg { background-color: var(--bg); }
+  .bg-surface { background-color: var(--surface); }
+  .bg-surface-warm { background-color: var(--surface-warm); }
+  .bg-fg { background-color: var(--fg); }
+  .bg-fg-2 { background-color: var(--fg-2); }
+  .bg-muted { background-color: var(--muted); }
+  .bg-border { background-color: var(--border); }
+  .bg-border-soft { background-color: var(--border-soft); }
+  .bg-accent { background-color: var(--accent); }
+  .bg-accent-on { background-color: var(--accent-on); }
+  .bg-accent-hover { background-color: var(--accent-hover); }
+  .bg-success { background-color: var(--success); }
+  .bg-warn { background-color: var(--warn); }
+  .bg-danger { background-color: var(--danger); }
+
+  .text-fg { color: var(--fg); }
+  .text-fg-2 { color: var(--fg-2); }
+  .text-muted { color: var(--muted); }
+  .text-accent { color: var(--accent); }
+  .text-accent-on { color: var(--accent-on); }
+  .text-success { color: var(--success); }
+  .text-warn { color: var(--warn); }
+  .text-danger { color: var(--danger); }
+
+  .border-border { border-color: var(--border); }
+  .border-border-soft { border-color: var(--border-soft); }
+  .border-accent { border-color: var(--accent); }
+
+  /* Glass surfaces */
+  .bg-glass-light { background-color: var(--glass-light); }
+  .bg-glass-medium { background-color: var(--glass-medium); }
+  .bg-glass-heavy { background-color: var(--glass-heavy); }
+  .bg-glass-dark { background-color: var(--glass-dark); }
+
+  /* Gradients */
+  .bg-gradient-sunset { background-image: var(--gradient-sunset); }
+  .bg-gradient-twilight { background-image: var(--gradient-twilight); }
+  .bg-gradient-aurora { background-image: var(--gradient-aurora); }
+
+  /* Typography */
+  .font-display { font-family: var(--font-display); }
+  .font-body { font-family: var(--font-body); }
+  .font-mono { font-family: var(--font-mono); }
+
+  .text-xs { font-size: var(--text-xs); }
+  .text-sm { font-size: var(--text-sm); }
+  .text-base { font-size: var(--text-base); }
+  .text-lg { font-size: var(--text-lg); }
+  .text-xl { font-size: var(--text-xl); }
+  .text-2xl { font-size: var(--text-2xl); }
+  .text-3xl { font-size: var(--text-3xl); }
+  .text-4xl { font-size: var(--text-4xl); }
+
+  .leading-body { line-height: var(--leading-body); }
+  .leading-tight { line-height: var(--leading-tight); }
+  .tracking-display { letter-spacing: var(--tracking-display); }
+
+  /* Spacing */
+  .p-1 { padding: var(--space-1); }
+  .p-2 { padding: var(--space-2); }
+  .p-3 { padding: var(--space-3); }
+  .p-4 { padding: var(--space-4); }
+  .p-5 { padding: var(--space-5); }
+  .p-6 { padding: var(--space-6); }
+  .p-8 { padding: var(--space-8); }
+  .p-12 { padding: var(--space-12); }
+
+  .px-1 { padding-inline: var(--space-1); }
+  .px-2 { padding-inline: var(--space-2); }
+  .px-3 { padding-inline: var(--space-3); }
+  .px-4 { padding-inline: var(--space-4); }
+  .px-5 { padding-inline: var(--space-5); }
+  .px-6 { padding-inline: var(--space-6); }
+  .px-8 { padding-inline: var(--space-8); }
+  .px-12 { padding-inline: var(--space-12); }
+
+  .py-1 { padding-block: var(--space-1); }
+  .py-2 { padding-block: var(--space-2); }
+  .py-3 { padding-block: var(--space-3); }
+  .py-4 { padding-block: var(--space-4); }
+  .py-5 { padding-block: var(--space-5); }
+  .py-6 { padding-block: var(--space-6); }
+  .py-8 { padding-block: var(--space-8); }
+  .py-12 { padding-block: var(--space-12); }
+
+  .gap-1 { gap: var(--space-1); }
+  .gap-2 { gap: var(--space-2); }
+  .gap-3 { gap: var(--space-3); }
+  .gap-4 { gap: var(--space-4); }
+  .gap-5 { gap: var(--space-5); }
+  .gap-6 { gap: var(--space-6); }
+  .gap-8 { gap: var(--space-8); }
+  .gap-12 { gap: var(--space-12); }
+
+  .m-1 { margin: var(--space-1); }
+  .m-2 { margin: var(--space-2); }
+  .m-3 { margin: var(--space-3); }
+  .m-4 { margin: var(--space-4); }
+  .m-5 { margin: var(--space-5); }
+  .m-6 { margin: var(--space-6); }
+  .m-8 { margin: var(--space-8); }
+  .m-12 { margin: var(--space-12); }
+
+  /* Radius */
+  .rounded-sm { border-radius: var(--radius-sm); }
+  .rounded-md { border-radius: var(--radius-md); }
+  .rounded-lg { border-radius: var(--radius-lg); }
+  .rounded-pill { border-radius: var(--radius-pill); }
+
+  /* Elevation / Shadows */
+  .shadow-flat { box-shadow: var(--elev-flat); }
+  .shadow-ring { box-shadow: var(--elev-ring); }
+  .shadow-raised { box-shadow: var(--elev-raised); }
+
+  /* Focus ring */
+  .focus-ring { box-shadow: var(--focus-ring); }
+
+  /* Motion */
+  .transition-fast { transition-duration: var(--motion-fast); }
+  .transition-base { transition-duration: var(--motion-base); }
+  .ease-standard { transition-timing-function: var(--ease-standard); }
+}
+
+/* ─── Component base styles ─── */
+
+@layer components {
+  /* Frosted glass card — the signature Arc surface */
+  .frosted-card {
+    @apply bg-glass-light dark:bg-glass-dark backdrop-blur-[24px] backdrop-saturate-180
+           border border-border dark:border-border
+           rounded-lg shadow-raised p-6;
+  }
+
+  .frosted-card-hover {
+    @apply frosted-card transition-all duration-300
+           hover:shadow-raised hover:-translate-y-1
+           hover:border-accent/50 dark:hover:border-accent/50;
+  }
+
+  /* Primary button — filled with Sunset gradient */
+  .btn-primary {
+    @apply inline-flex items-center justify-center font-medium transition-all duration-200
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed
+           px-4 py-2 rounded-md gap-2
+           bg-gradient-sunset text-accent-on
+           shadow-[0_4px_16px_rgba(255,127,95,0.3)]
+           hover:shadow-[0_8px_24px_rgba(255,127,95,0.4)];
+  }
+
+  /* Glass (secondary) button */
+  .btn-glass {
+    @apply inline-flex items-center justify-center font-medium transition-all duration-200
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed
+           px-4 py-2 rounded-md gap-2
+           bg-glass-light dark:bg-glass-dark
+           backdrop-blur-[20px]
+           text-fg dark:text-fg
+           border border-border dark:border-border;
+  }
+
+  /* Subtle button */
+  .btn-subtle {
+    @apply inline-flex items-center justify-center font-medium transition-all duration-200
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed
+           px-4 py-2 rounded-md gap-2
+           bg-transparent text-accent
+           hover:bg-accent/10;
+  }
+
+  /* Input / Textarea */
+  .field-input {
+    @apply w-full px-4 py-3 rounded-md
+           bg-glass-heavy dark:bg-glass-heavy
+           backdrop-blur-[40px]
+           text-fg dark:text-fg
+           border border-border dark:border-border
+           placeholder:text-muted
+           focus:outline-none focus:shadow-focus-ring
+           transition-all duration-200;
+  }
+
+  /* Pill / Chip */
+  .pill {
+    @apply inline-flex items-center gap-1.5 px-2 py-1 rounded-pill
+           text-xs font-semibold
+           bg-accent/16 text-accent;
+  }
+
+  .pill-selected {
+    @apply pill bg-gradient-sunset text-accent-on;
+  }
+
+  /* Section container */
+  .section {
+    @apply w-full px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-lg {
+    @apply section py-20 sm:py-24 lg:py-32;
+  }
+
+  .section-md {
+    @apply section py-16 sm:py-20 lg:py-24;
+  }
+
+  /* Container */
+  .container {
+    @apply mx-auto max-w-7xl;
+  }
+
+  /* Stack spacing */
+  .stack-3 > * + * { margin-top: var(--space-3); }
+  .stack-4 > * + * { margin-top: var(--space-4); }
+  .stack-6 > * + * { margin-top: var(--space-6); }
+  .stack-8 > * + * { margin-top: var(--space-8); }
+}

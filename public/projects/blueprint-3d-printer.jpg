@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="blueprint" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#blueprint)"/>
+  <text x="400" y="200" font-family="system-ui, sans-serif" font-size="42" font-weight="bold" fill="white" text-anchor="middle">Blueprint 3D Printer</text>
+  <text x="400" y="260" font-family="system-ui, sans-serif" font-size="24" fill="white" text-anchor="middle" opacity="0.9">Custom FDM Printer</text>
+  <text x="400" y="340" font-family="system-ui, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.7">Project Preview Image</text>
+</svg>

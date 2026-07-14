@@ -30,20 +30,17 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: ./portfolio-rnw/portfolio-rnw
 
       - name: Build
         run: npm run build:build
-        working-directory: ./portfolio-rnw/portfolio-rnw
 
       - name: Create CNAME file
         run: echo "arnost.kernelkicks.dev" > ./dist/CNAME
-        working-directory: ./portfolio-rnw/portfolio-rnw
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./portfolio-rnw/portfolio-rnw/dist
+          path: ./dist
 
   deploy:
     environment:

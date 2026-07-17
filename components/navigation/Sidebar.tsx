@@ -83,7 +83,10 @@ export const Sidebar = () => {
           {(['light', 'dark', 'system'] as const).map((t) => (
             <Pressable
               key={t}
-              style={[styles.themeOption, theme === t && styles.themeOptionActive]}
+              style={[
+                styles.themeOption,
+                theme === t && styles.themeOptionActive,
+              ]}
               onPress={() => setTheme(t)}
               accessibilityRole="radio"
               accessibilityState={{ checked: theme === t }}
@@ -111,7 +114,9 @@ export const Sidebar = () => {
 
       {/* Footer */}
       <View style={styles.sidebarFooter}>
-        <Text style={styles.footerText}>Made with ❤️ by Arnošt</Text>
+        <Text style={styles.footerText}>
+          Made with ❤️ by Arnošt
+        </Text>
       </View>
     </View>
   );
@@ -119,12 +124,14 @@ export const Sidebar = () => {
 
 const styles = StyleSheet.create({
   sidebar: {
-    position: 'absolute',
+    position: 'fixed',
     top: 0,
     left: 0,
     bottom: 0,
     width: 240,
     backgroundColor: 'rgba(255, 255, 255, 0.85)',
+    backdropFilter: 'blur(24px) saturate(180%)',
+    WebkitBackdropFilter: 'blur(24px) saturate(180%)',
     borderRightWidth: 1,
     borderRightColor: 'var(--border)',
     paddingVertical: 32,
@@ -138,7 +145,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 12,
-    backgroundColor: 'rgba(255, 95, 95, 0.2)',
+    backgroundImage: 'linear-gradient(135deg, #ff7e5f, #feb47b)',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 32,
@@ -149,7 +156,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '400',
     color: '#fff',
-    letterSpacing: -0.4,
+    letterSpacing: '-0.02em',
   },
   nav: {
     flex: 1,
@@ -186,7 +193,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: 'var(--muted)',
     textTransform: 'uppercase',
-    letterSpacing: 0.6,
+    letterSpacing: '0.05em',
   },
   themeSelector: {
     flexDirection: 'row',
@@ -203,7 +210,7 @@ const styles = StyleSheet.create({
     borderColor: 'var(--border)',
   },
   themeOptionActive: {
-    backgroundColor: 'rgba(255, 95, 95, 0.2)',
+    backgroundImage: 'linear-gradient(135deg, #ff7e5f, #feb47b)',
     borderColor: 'transparent',
   },
   settingsLink: {

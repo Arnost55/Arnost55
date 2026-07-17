@@ -1,14 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { View, ScrollView, StyleSheet, Pressable, Text, Image } from 'react-native';
 import { useWindowDimensions } from 'react-native';
-import {
-  useSharedValue,
-  useAnimatedScrollHandler,
-  useAnimatedStyle,
-  withSpring,
-  withDelay,
-  runOnJS,
-} from 'react-native-reanimated';
+import { useSharedValue, useAnimatedScrollHandler, useAnimatedStyle, withSpring, withDelay, runOnJS } from 'react-native-reanimated';
 import { Link } from 'expo-router';
 import { ScreenContainer, Section } from '../components/layout/ScreenContainer';
 import { Hero } from '../components/sections/Hero';
@@ -90,9 +83,7 @@ function HomeScreen() {
 
         {/* Content Creation Section */}
         <View ref={sectionRefs.content} style={styles.sectionWrapper} id="content">
-          {contentChannels.map((channel, index) => (
-            <ContentCard key={channel.platform} channel={channel} index={index} />
-          ))}
+          <ContentCard />
         </View>
 
         {/* Education Section */}
@@ -158,7 +149,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
     color: 'var(--accent)',
-    letterSpacing: 1.2,
+    letterSpacing: '0.1em',
     textTransform: 'uppercase',
   },
   contactTitle: {
@@ -167,7 +158,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: 'var(--fg)',
     lineHeight: 1.15,
-    letterSpacing: -0.8,
+    letterSpacing: '-0.02em',
   },
   contactGrid: {
     flexDirection: 'row',

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Slot } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { ReanimatedRoot } from 'react-native-reanimated';
 import { ThemeProvider } from '../hooks/useTheme';
 import { GradientBackdrop } from '../components/layout/ScreenContainer';
 import { Header } from '../components/navigation/Header';
@@ -15,12 +16,14 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider>
-        <GradientBackdrop variant="sunset" animated />
-        <Header />
-        {isDesktop && <Sidebar />}
-        <Slot />
-      </ThemeProvider>
+      <ReanimatedRoot>
+        <ThemeProvider>
+          <GradientBackdrop variant="sunset" animated />
+          <Header />
+          {isDesktop && <Sidebar />}
+          <Slot />
+        </ThemeProvider>
+      </ReanimatedRoot>
     </GestureHandlerRootView>
   );
 }

@@ -1,14 +1,20 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable, Switch, ScrollView, Linking } from 'react-native';
 import { useWindowDimensions } from 'react-native';
-import { useTheme, useReducedMotion } from '../../hooks';
-import { ScreenContainer, Section } from '../../components/layout/ScreenContainer';
-import { Button } from '../../components/ui/Button';
-import { Card } from '../../components/ui/Card';
-import { Chip } from '../../components/ui/Chip';
-import { Icon } from '../../components/ui/Icon';
-import { arcSpring } from '../../constants/design-tokens';
-import { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
+import { useTheme, useReducedMotion, useAnimatedStyleHelpers } from '../hooks';
+import { ScreenContainer, Section } from '../components/layout/ScreenContainer';
+import { Button } from '../components/ui/Button';
+import { Card } from '../components/ui/Card';
+import { Chip } from '../components/ui/Chip';
+import { Icon } from '../components/ui/Icon';
+import { arcSpring } from '../constants/design-tokens';
+import {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  withTiming,
+  Easing,
+} from 'react-native-reanimated';
 import * as Application from 'expo-application';
 import * as Device from 'expo-device';
 
@@ -20,10 +26,11 @@ export default function SettingsScreen() {
   const { reduceMotion, toggleReducedMotion } = useReducedMotion();
   const { width } = useWindowDimensions();
 
-  const anim = useSharedValue(0);
+  const { createEntrance } = useAnimatedStyleHelpers();
+  const anim = createEntrance();
 
   React.useEffect(() => {
-    anim.value = withSpring(1, arcSpring);
+    anim.start();
   }, []);
 
   const version = Application.nativeApplicationVersion || '1.0.0';
@@ -55,18 +62,13 @@ export default function SettingsScreen() {
             <View style={styles.settingRow}>
               <View style={styles.settingInfo}>
                 <Text style={styles.settingLabel}>Theme</Text>
-                <Text style={styles.settingDescription}>
-                  Choose your preferred color scheme
-                </Text>
+                <Text style={styles.settingDescription}>Choose your preferred color scheme</Text>
               </View>
               <View style={styles.themeSelector}>
                 {(['light', 'dark', 'system'] as const).map((t) => (
                   <Pressable
                     key={t}
-                    style={[
-                      styles.themeOption,
-                      theme === t && styles.themeOptionActive,
-                    ]}
+                    style={[styles.themeOption, theme === t && styles.themeOptionActive]}
                     onPress={() => setTheme(t)}
                     accessibilityRole="radio"
                     accessibilityState={{ checked: theme === t }}
@@ -86,9 +88,7 @@ export default function SettingsScreen() {
             <View style={[styles.settingRow, styles.settingRowDivider]}>
               <View style={styles.settingInfo}>
                 <Text style={styles.settingLabel}>Reduced Motion</Text>
-                <Text style={styles.settingDescription}>
-                  Minimize animations for accessibility
-                </Text>
+                <Text style={styles.settingDescription}>Minimize animations for accessibility</Text>
               </View>
               <Switch
                 value={reduceMotion}
@@ -114,7 +114,9 @@ export default function SettingsScreen() {
               </View>
               <View style={styles.aboutInfo}>
                 <Text style={styles.aboutLabel}>Portfolio</Text>
-                <Text style={styles.aboutVersion}>v{version} (build {buildNumber})</Text>
+                <Text style={styles.aboutVersion}>
+                  v{version} (build {buildNumber})
+                </Text>
               </View>
             </View>
 
@@ -256,9 +258,7 @@ export default function SettingsScreen() {
 
         {/* Footer */}
         <View style={styles.footer}>
-          <Text style={styles.footerText}>
-            Made with ❤️ by Arnošt Dobrucký
-          </Text>
+          <Text style={styles.footerText}>Made with ❤️ by Arnošt Dobrucký</Text>
           <Text style={styles.footerText}>
             React Native for Web · Expo · NativeWind · Reanimated
           </Text>
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: '400',
     color: 'var(--fg)',
-    letterSpacing: '-0.02em',
+    letterSpacing: -0.64,
   },
   headerSubtitle: {
     fontFamily: 'var(--font-body)',
@@ -350,7 +350,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   themeOptionActive: {
-    backgroundImage: 'linear-gradient(135deg, #ff7e5f, #feb47b)',
+    backgroundColor: 'rgba(255, 95, 95, 0.2)',
     borderColor: 'transparent',
     shadowColor: '#ff7e5f',
     shadowOffset: { width: 0, height: 4 },
@@ -441,7 +441,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: 'var(--muted)',
     textTransform: 'uppercase',
-    letterSpacing: '0.05em',
+    letterSpacing: 0.6,
   },
   deviceValue: {
     fontFamily: 'var(--font-mono)',

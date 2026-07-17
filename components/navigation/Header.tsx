@@ -130,10 +130,7 @@ export const Header = () => {
       {/* Mobile Menu */}
       {!isDesktop && (
         <View
-          style={[
-            styles.mobileMenu,
-            menuStyle,
-          ]}
+          style={[styles.mobileMenu, menuStyle]}
           pointerEvents={menuOpen.value ? 'box-only' : 'none'}
         >
           {navItems.map((item) => (
@@ -163,14 +160,12 @@ export const Header = () => {
 
 const styles = StyleSheet.create({
   header: {
-    position: 'fixed',
+    position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     zIndex: 100,
     backgroundColor: 'rgba(255, 255, 255, 0.7)',
-    backdropFilter: 'blur(20px)',
-    WebkitBackdropFilter: 'blur(20px)',
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(255, 255, 255, 0.4)',
     paddingVertical: 12,
@@ -188,7 +183,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 10,
-    backgroundImage: 'linear-gradient(135deg, #ff7e5f, #feb47b)',
+    backgroundColor: 'rgba(255, 95, 95, 0.2)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -197,7 +192,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     color: '#fff',
-    letterSpacing: '-0.02em',
+    letterSpacing: -0.32,
   },
   desktopNav: {
     flexDirection: 'row',
@@ -257,8 +252,6 @@ const styles = StyleSheet.create({
     left: 16,
     right: 16,
     backgroundColor: 'rgba(255, 255, 255, 0.85)',
-    backdropFilter: 'blur(24px) saturate(180%)',
-    WebkitBackdropFilter: 'blur(24px) saturate(180%)',
     borderRadius: 16,
     borderWidth: 1,
     borderColor: 'var(--border)',

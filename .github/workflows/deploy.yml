@@ -32,7 +32,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build:build
+        run: npm run build
 
       - name: Create CNAME file
         run: echo "arnost.kernelkicks.dev" > ./dist/CNAME

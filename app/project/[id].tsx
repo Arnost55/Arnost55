@@ -1,7 +1,22 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, Pressable, Linking, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Pressable,
+  Linking,
+  Platform,
+} from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useSharedValue, useAnimatedStyle, withSpring, withTiming, runOnJS } from 'react-native-reanimated';
+import {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  withTiming,
+  runOnJS,
+} from 'react-native-reanimated';
 import { useWindowDimensions } from 'react-native';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { ScreenContainer } from '../../components/layout/ScreenContainer';
@@ -15,13 +30,13 @@ import { Easing } from 'react-native-reanimated';
 /**
  * Project Detail Screen - Modal sheet on mobile, full page on desktop
  */
-export default function ProjectDetailScreen() {
+function ProjectDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const { width } = useWindowDimensions();
   const { isDesktop } = useBreakpoint();
 
-  const project = projects.find(p => p.id === id);
+  const project = projects.find((p) => p.id === id);
 
   // Animation values - use numeric values for Reanimated
   const translateY = useSharedValue(isDesktop ? 0 : 1000);
@@ -35,25 +50,31 @@ export default function ProjectDetailScreen() {
 
   const modalStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
-    transform: [
-      { translateY: translateY.value },
-      { scale: scale.value },
-    ],
+    transform: [{ translateY: translateY.value }, { scale: scale.value }],
   }));
 
   const handleOpen = () => {
-    opacity.value = withTiming(1, { duration: motion.fast, easing: Easing.bezier(0.32, 0.72, 0, 1) });
+    opacity.value = withTiming(1, {
+      duration: motion.fast,
+      easing: Easing.bezier(0.32, 0.72, 0, 1),
+    });
     translateY.value = withSpring(0, arcSpring);
     scale.value = withSpring(1, arcSpring);
   };
 
   const handleClose = () => {
     if (isDesktop) {
-      opacity.value = withTiming(0, { duration: motion.fast, easing: Easing.bezier(0.32, 0.72, 0, 1) });
+      opacity.value = withTiming(0, {
+        duration: motion.fast,
+        easing: Easing.bezier(0.32, 0.72, 0, 1),
+      });
       scale.value = withSpring(0.95, arcSpring);
     } else {
       translateY.value = withSpring(1000, arcSpring);
-      opacity.value = withTiming(0, { duration: motion.fast, easing: Easing.bezier(0.32, 0.72, 0, 1) });
+      opacity.value = withTiming(0, {
+        duration: motion.fast,
+        easing: Easing.bezier(0.32, 0.72, 0, 1),
+      });
     }
     setTimeout(() => runOnJS(router.back)(), isDesktop ? motion.fast : motion.base);
   };
@@ -66,7 +87,7 @@ export default function ProjectDetailScreen() {
     return null;
   }
 
-  const currentIndex = projects.findIndex(p => p.id === id);
+  const currentIndex = projects.findIndex((p) => p.id === id);
   const hasPrev = currentIndex > 0;
   const hasNext = currentIndex < projects.length - 1;
   const prevProject = hasPrev ? projects[currentIndex - 1] : null;
@@ -79,21 +100,10 @@ export default function ProjectDetailScreen() {
   return (
     <View style={styles.overlay} pointerEvents="box-none">
       {/* Backdrop */}
-      <Pressable
-        style={backdropStyle}
-        onPress={handleClose}
-        pointerEvents="box-only"
-      />
+      <Pressable style={backdropStyle} onPress={handleClose} pointerEvents="box-only" />
 
       {/* Modal / Page content */}
-      <View
-        style={[
-          sheetStyle,
-          modalStyle,
-          contentStyle,
-        ]}
-        pointerEvents="box-only"
-      >
+      <View style={[sheetStyle, modalStyle, contentStyle]} pointerEvents="box-only">
         {/* Header */}
         <View style={styles.header}>
           {isDesktop && (
@@ -114,15 +124,12 @@ export default function ProjectDetailScreen() {
         </View>
 
         {/* Content */}
-        <ScrollView
-          contentContainerStyle={styles.content}
-          showsVerticalScrollIndicator={false}
-        >
+        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           {/* Hero Image */}
           <View style={styles.heroWrapper}>
             <Image
               source={{ uri: project.image }}
-              style={styles.heroImage}
+              style={styles.heroImage as any}
               resizeMode="cover"
             />
             <View style={styles.heroOverlay}>
@@ -322,7 +329,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: 'var(--fg)',
     lineHeight: 1.2,
-    letterSpacing: '-0.02em',
+    letterSpacing: -0.64,
   },
   description: {
     fontFamily: 'var(--font-body)',

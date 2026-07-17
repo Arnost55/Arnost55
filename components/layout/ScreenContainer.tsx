@@ -1,7 +1,6 @@
 import React, { ReactNode, forwardRef } from 'react';
 import { View, SafeAreaView, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
-import { BlurView } from 'expo-blur';
-import { useTheme } from '../hooks';
+import { useTheme } from '../../hooks';
 
 interface ScreenContainerProps {
   children: ReactNode;
@@ -30,11 +29,7 @@ export const ScreenContainer = ({
   const isTablet = width >= 768 && width < 1024;
   const horizontalPadding = isDesktop ? 32 : isTablet ? 24 : 16;
 
-  const containerStyle = [
-    styles.container,
-    isDark ? styles.dark : styles.light,
-    style,
-  ];
+  const containerStyle = [styles.container, isDark ? styles.dark : styles.light, style];
 
   const contentStyle = [
     styles.content,
@@ -44,9 +39,7 @@ export const ScreenContainer = ({
 
   return (
     <SafeAreaView style={containerStyle}>
-      {showGradient && (
-        <GradientBackdrop variant={gradientVariant} />
-      )}
+      {showGradient && <GradientBackdrop variant={gradientVariant} />}
       {scrollable ? (
         <ScrollView
           contentContainerStyle={contentStyle}
@@ -56,9 +49,7 @@ export const ScreenContainer = ({
           {children}
         </ScrollView>
       ) : (
-        <View style={contentStyle}>
-          {children}
-        </View>
+        <View style={contentStyle}>{children}</View>
       )}
     </SafeAreaView>
   );
@@ -161,41 +152,27 @@ export const FrostedCard = ({
 
   if (pressable && onPress) {
     return (
-      <PressableFrostedCard
-        style={glassStyle}
-        onPress={onPress}
-        intensity={intensity}
-      >
+      <PressableFrostedCard style={glassStyle} onPress={onPress} intensity={intensity}>
         {children}
       </PressableFrostedCard>
     );
   }
 
-  return (
-    <BlurView
-      intensity={intensityMap[intensity] === 'glassLight' || intensityMap[intensity] === 'glassDark' ? 'regular' : intensityMap[intensity] === 'glassMedium' ? 'light' : 'dark'}
-      style={glassStyle}
-    >
-      {children}
-    </BlurView>
-  );
+  return <View style={glassStyle}>{children}</View>;
 };
 
-const PressableFrostedCard = forwardRef<View, { children: ReactNode; style: any; onPress: () => void; intensity: string }>(
-  ({ children, style, onPress, intensity }, ref) => {
-    const { isDark } = useTheme();
+const PressableFrostedCard = forwardRef<
+  View,
+  { children: ReactNode; style: any; onPress: () => void; intensity: string }
+>(({ children, style, onPress, intensity }, ref) => {
+  const { isDark } = useTheme();
 
-    return (
-      <BlurView
-        ref={ref}
-        intensity={intensity === 'light' || intensity === 'dark' ? 'regular' : intensity === 'medium' ? 'light' : 'dark'}
-        style={style}
-      >
-        {children}
-      </BlurView>
-    );
-  }
-);
+  return (
+    <View ref={ref} style={style}>
+      {children}
+    </View>
+  );
+});
 
 interface SectionProps {
   children: ReactNode;
@@ -205,13 +182,7 @@ interface SectionProps {
   id?: string;
 }
 
-export const Section = ({
-  children,
-  style,
-  size = 'lg',
-  fullWidth = false,
-  id,
-}: SectionProps) => {
+export const Section = ({ children, style, size = 'lg', fullWidth = false, id }: SectionProps) => {
   const { width } = useWindowDimensions();
   const isDesktop = width >= 1024;
   const isTablet = width >= 768 && width < 1024;
@@ -226,8 +197,8 @@ export const Section = ({
   const verticalPadding = isDesktop
     ? spacingMap[size].desktop
     : isTablet
-    ? spacingMap[size].tablet
-    : spacingMap[size].phone;
+      ? spacingMap[size].tablet
+      : spacingMap[size].phone;
 
   const horizontalPadding = isDesktop ? 32 : isTablet ? 24 : 16;
 
@@ -277,7 +248,6 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: -1,
-    backgroundSize: '200% 200%',
   },
   frostedCard: {
     // Base frosted glass styles applied via style prop

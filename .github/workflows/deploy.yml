@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main, master, portfolio]
+    branches: [portfolio]
   workflow_dispatch:
 
 # Grant permissions required for native GitHub Pages deployment

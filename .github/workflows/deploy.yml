@@ -33,9 +33,6 @@ jobs:
           node-version: '22'
           cache: 'pnpm'
 
-      - name: Approve build scripts
-        run: pnpm approve-builds
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -46,16 +43,17 @@ jobs:
         run: echo "arnost.kernelkicks.dev" > ./dist/CNAME
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
 
   deploy:
     environment:
       name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

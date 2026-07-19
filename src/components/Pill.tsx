@@ -5,14 +5,17 @@ import { forwardRef } from 'react';
 import type { HTMLAttributes, ForwardedRef } from 'react';
 
 interface PillProps extends HTMLAttributes<HTMLSpanElement> {
-  variant?: 'brand' | 'arc' | 'success' | 'warn' | 'danger' | 'outline';
+  variant?: 'brand' | 'arc' | 'success' | 'warn' | 'danger' | 'outline' | 'neutral';
   size?: 'sm' | 'md';
   dot?: boolean;
   dotColor?: string;
 }
 
 export const Pill = forwardRef<HTMLSpanElement, PillProps>(
-  ({ className, variant = 'brand', size = 'md', dot = false, dotColor, children, ...props }, ref: ForwardedRef<HTMLSpanElement>) => {
+  (
+    { className, variant = 'brand', size = 'md', dot = false, dotColor, children, ...props },
+    ref: ForwardedRef<HTMLSpanElement>
+  ) => {
     const variantClasses = {
       brand: 'pill-brand',
       arc: 'pill-arc',
@@ -20,6 +23,7 @@ export const Pill = forwardRef<HTMLSpanElement, PillProps>(
       warn: 'bg-warn/15 text-warn',
       danger: 'bg-danger/15 text-danger',
       outline: 'border border-border text-fg2',
+      neutral: 'bg-muted/15 text-fg2',
     };
 
     const sizeClasses = {

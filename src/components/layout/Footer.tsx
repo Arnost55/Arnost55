@@ -11,7 +11,9 @@ export function Footer() {
     { name: 'GitHub', href: personalInfo.github, icon: GithubIcon },
     { name: 'LinkedIn', href: personalInfo.linkedin, icon: LinkedinIcon },
     { name: 'Email', href: `mailto:${personalInfo.email}`, icon: Mail },
-    { name: 'Phone', href: `tel:${personalInfo.phone.replace(/\s/g, '')}`, icon: Phone },
+    ...(personalInfo.phone
+      ? [{ name: 'Phone', href: `tel:${personalInfo.phone.replace(/\s/g, '')}`, icon: Phone }]
+      : []),
   ];
 
   const footerLinks = [
@@ -25,16 +27,26 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800" role="contentinfo">
+    <footer
+      className="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800"
+      role="contentinfo"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center gap-2 text-xl font-bold text-slate-900 dark:text-slate-100 mb-4" aria-label="Arnošt Dobrucký - Home">
-              <span className="bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">AD</span>
+            <Link
+              to="/"
+              className="flex items-center gap-2 text-xl font-bold text-slate-900 dark:text-slate-100 mb-4"
+              aria-label="Arnošt Dobrucký - Home"
+            >
+              <span className="bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+                AD
+              </span>
             </Link>
             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">
-              Full-stack developer & tech content creator from Slovakia. Building things that matter.
+              Full-stack developer & tech content creator from Slovakia. Building things that
+              matter.
             </p>
             <div className="flex flex-wrap gap-4">
               {socialLinks.map((social) => (
@@ -54,7 +66,9 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-4">Quick Links</h3>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-4">
+              Quick Links
+            </h3>
             <nav aria-label="Footer navigation">
               <ul className="space-y-3">
                 {footerLinks.map((link) => (
@@ -73,33 +87,57 @@ export function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-4">Contact</h3>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-4">
+              Contact
+            </h3>
             <address className="not-italic space-y-3 text-sm text-slate-600 dark:text-slate-400">
               <div className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-slate-400 dark:text-slate-500 mt-0.5 flex-shrink-0" aria-hidden="true" />
+                <MapPin
+                  className="h-5 w-5 text-slate-400 dark:text-slate-500 mt-0.5 flex-shrink-0"
+                  aria-hidden="true"
+                />
                 <span>{personalInfo.location}</span>
               </div>
               <div className="flex items-start gap-3">
-                <Mail className="h-5 w-5 text-slate-400 dark:text-slate-500 mt-0.5 flex-shrink-0" aria-hidden="true" />
-                <a href={`mailto:${personalInfo.email}`} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                <Mail
+                  className="h-5 w-5 text-slate-400 dark:text-slate-500 mt-0.5 flex-shrink-0"
+                  aria-hidden="true"
+                />
+                <a
+                  href={`mailto:${personalInfo.email}`}
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                >
                   {personalInfo.email}
                 </a>
               </div>
-              <div className="flex items-start gap-3">
-                <Phone className="h-5 w-5 text-slate-400 dark:text-slate-500 mt-0.5 flex-shrink-0" aria-hidden="true" />
-                <a href={`tel:${personalInfo.phone.replace(/\s/g, '')}`} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                  {personalInfo.phone}
-                </a>
-              </div>
+              {personalInfo.phone && (
+                <div className="flex items-start gap-3">
+                  <Phone
+                    className="h-5 w-5 text-slate-400 dark:text-slate-500 mt-0.5 flex-shrink-0"
+                    aria-hidden="true"
+                  />
+                  <a
+                    href={`tel:${personalInfo.phone.replace(/\s/g, '')}`}
+                    className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                  >
+                    {personalInfo.phone}
+                  </a>
+                </div>
+              )}
             </address>
           </div>
 
           {/* Status */}
           <div>
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-4">Currently</h3>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-4">
+              Currently
+            </h3>
             <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
               <li className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-slate-400 dark:text-slate-500" aria-hidden="true" />
+                <Calendar
+                  className="h-4 w-4 text-slate-400 dark:text-slate-500"
+                  aria-hidden="true"
+                />
                 <span>Student at SPŠ Halova 16, Bratislava</span>
               </li>
               <li className="flex items-center gap-2">

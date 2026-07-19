@@ -14,6 +14,7 @@ import {
   Server,
   Globe,
 } from 'lucide-react';
+import type { ReactNode } from 'react';
 import { GlassCard } from '@/components/GlassCard';
 import { Button } from '@/components/Button';
 import { Section } from '@/components/Section';
@@ -78,7 +79,11 @@ export default function ProjectDetail() {
   return (
     <>
       {/* Back Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 glass-heavy py-3" role="navigation" aria-label="Project navigation">
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 glass-heavy py-3"
+        role="navigation"
+        aria-label="Project navigation"
+      >
         <Container size="lg">
           <Link
             to="/"
@@ -100,10 +105,16 @@ export default function ProjectDetail() {
           >
             <div className="flex flex-wrap gap-2 mb-6">
               {project.tags.slice(0, 4).map((tag) => (
-                <Pill key={tag} variant="arc" size="sm">{tag}</Pill>
+                <Pill key={tag} variant="arc" size="sm">
+                  {tag}
+                </Pill>
               ))}
-              <Pill variant="brand" size="sm">{project.role}</Pill>
-              <Pill variant="arc" size="sm">{project.duration}</Pill>
+              <Pill variant="brand" size="sm">
+                {project.role}
+              </Pill>
+              <Pill variant="arc" size="sm">
+                {project.duration}
+              </Pill>
             </div>
             <h1 className="text-section text-fg mb-4">{project.title}</h1>
             <p className="text-lead text-fg-2 max-w-3xl">{project.description}</p>
@@ -130,7 +141,8 @@ export default function ProjectDetail() {
                 </motion.article>
               )}
 
-              {(project.challenges && project.challenges.length > 0) || (project.solutions && project.solutions.length > 0) ? (
+              {(project.challenges && project.challenges.length > 0) ||
+              (project.solutions && project.solutions.length > 0) ? (
                 <motion.article
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -182,7 +194,7 @@ export default function ProjectDetail() {
               >
                 <h2 className="text-h2 text-fg mb-4">Technologies</h2>
                 <div className="flex flex-wrap gap-3">
-                  {project.technologies.map((tech) => (
+                  {project.technologies?.map((tech) => (
                     <Button key={tech} variant="glass" size="sm" className="gap-2">
                       {iconMap[tech] || <Code2 className="h-4 w-4" />}
                       {tech}
@@ -213,7 +225,9 @@ export default function ProjectDetail() {
                         <GitBranch className="h-5 w-5 text-fg-2 group-hover:text-accent transition-colors" />
                         <div>
                           <p className="font-medium text-fg text-sm">GitHub Repository</p>
-                          <p className="text-xs text-muted truncate max-w-[180px]">{project.githubUrl}</p>
+                          <p className="text-xs text-muted truncate max-w-[180px]">
+                            {project.githubUrl}
+                          </p>
                         </div>
                       </a>
                     )}
@@ -227,7 +241,9 @@ export default function ProjectDetail() {
                         <ExternalLink className="h-5 w-5 text-fg-2 group-hover:text-accent transition-colors" />
                         <div>
                           <p className="font-medium text-fg text-sm">Live Demo</p>
-                          <p className="text-xs text-muted truncate max-w-[180px]">{project.liveUrl}</p>
+                          <p className="text-xs text-muted truncate max-w-[180px]">
+                            {project.liveUrl}
+                          </p>
                         </div>
                       </a>
                     )}
@@ -281,7 +297,9 @@ export default function ProjectDetail() {
                   <h3 className="font-semibold text-fg mb-4">Categories</h3>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
-                      <Pill key={tag} variant="arc" size="sm">{tag}</Pill>
+                      <Pill key={tag} variant="arc" size="sm">
+                        {tag}
+                      </Pill>
                     ))}
                   </div>
                 </GlassCard>
@@ -302,8 +320,8 @@ export default function ProjectDetail() {
           >
             <h2 className="text-section text-fg mb-4">Like This Project?</h2>
             <p className="text-lead text-fg-2 mb-8">
-              Let's build something amazing together. I'm always open to new
-              opportunities and collaborations.
+              Let's build something amazing together. I'm always open to new opportunities and
+              collaborations.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button size="lg" asChild>

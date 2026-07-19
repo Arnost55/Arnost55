@@ -13,8 +13,12 @@ export function ThemeToggle() {
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node) &&
-          buttonRef.current && !buttonRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
       }
     }
@@ -26,7 +30,12 @@ export function ThemeToggle() {
   const themeOptions = [
     { value: 'light' as const, label: 'Light', icon: Sun, description: 'Always light mode' },
     { value: 'dark' as const, label: 'Dark', icon: Moon, description: 'Always dark mode' },
-    { value: 'system' as const, label: 'System', icon: Monitor, description: 'Match OS preference' },
+    {
+      value: 'system' as const,
+      label: 'System',
+      icon: Monitor,
+      description: 'Match OS preference',
+    },
   ];
 
   return (
@@ -79,8 +88,17 @@ export function ThemeToggle() {
                 <div className="text-xs text-muted">{option.description}</div>
               </div>
               {theme === option.value && (
-                <svg className="h-4 w-4 flex-shrink-0 text-accent" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <svg
+                  className="h-4 w-4 flex-shrink-0 text-accent"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               )}
             </button>
@@ -88,7 +106,7 @@ export function ThemeToggle() {
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         @keyframes fade-in {
           from {
             opacity: 0;

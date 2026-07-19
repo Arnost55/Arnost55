@@ -25,7 +25,9 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>;
 
 export function Contact() {
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>(
+    'idle'
+  );
   const [statusMessage, setStatusMessage] = useState('');
 
   const {
@@ -80,8 +82,8 @@ export function Contact() {
             Let&apos;s Build Something Together
           </h2>
           <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-            Open to freelance projects, collaborations, speaking opportunities, or just a friendly chat about tech.
-            I&apos;d love to hear from you.
+            Open to freelance projects, collaborations, speaking opportunities, or just a friendly
+            chat about tech. I&apos;d love to hear from you.
           </p>
         </div>
 
@@ -93,22 +95,46 @@ export function Contact() {
             transition={{ duration: 0.6 }}
           >
             <Card variant="elevated" padding="lg" className="h-full">
-              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">Contact Information</h3>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">
+                Contact Information
+              </h3>
 
               <div className="space-y-6 mb-8">
                 {[
-                  { icon: Mail, label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
-                  { icon: Phone, label: 'Phone', value: personalInfo.phone, href: `tel:${personalInfo.phone.replace(/\s/g, '')}` },
+                  {
+                    icon: Mail,
+                    label: 'Email',
+                    value: personalInfo.email,
+                    href: `mailto:${personalInfo.email}`,
+                  },
+                  ...(personalInfo.phone
+                    ? [
+                        {
+                          icon: Phone,
+                          label: 'Phone',
+                          value: personalInfo.phone,
+                          href: `tel:${personalInfo.phone.replace(/\s/g, '')}`,
+                        },
+                      ]
+                    : []),
                   { icon: MapPin, label: 'Location', value: personalInfo.location, href: null },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center flex-shrink-0">
-                      <item.icon className="h-5 w-5 text-indigo-600 dark:text-indigo-400" aria-hidden="true" />
+                      <item.icon
+                        className="h-5 w-5 text-indigo-600 dark:text-indigo-400"
+                        aria-hidden="true"
+                      />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{item.label}</p>
+                      <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                        {item.label}
+                      </p>
                       {item.href ? (
-                        <a href={item.href} className="text-slate-900 dark:text-slate-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                        <a
+                          href={item.href}
+                          className="text-slate-900 dark:text-slate-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                        >
                           {item.value}
                         </a>
                       ) : (
@@ -120,7 +146,9 @@ export function Contact() {
               </div>
 
               <div className="pt-6 border-t border-slate-200 dark:border-slate-800">
-                <h4 className="font-medium text-slate-900 dark:text-slate-100 mb-4">Connect Socially</h4>
+                <h4 className="font-medium text-slate-900 dark:text-slate-100 mb-4">
+                  Connect Socially
+                </h4>
                 <div className="flex gap-4">
                   {[
                     { icon: GithubIcon, href: personalInfo.github, label: 'GitHub' },
@@ -142,7 +170,11 @@ export function Contact() {
             </Card>
 
             {/* Quick CTA Card */}
-            <Card variant="outlined" padding="lg" className="mt-6 bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 border-indigo-200 dark:border-indigo-800">
+            <Card
+              variant="outlined"
+              padding="lg"
+              className="mt-6 bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 border-indigo-200 dark:border-indigo-800"
+            >
               <div className="text-center">
                 <p className="text-slate-600 dark:text-slate-400 mb-4">
                   Prefer a direct conversation? I&apos;m available for:
@@ -155,7 +187,10 @@ export function Contact() {
                     'Mentorship',
                     'Open Source',
                   ].map((item) => (
-                    <span key={item} className="px-3 py-1 rounded-full text-xs font-medium bg-white dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+                    <span
+                      key={item}
+                      className="px-3 py-1 rounded-full text-xs font-medium bg-white dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800"
+                    >
                       {item}
                     </span>
                   ))}
@@ -171,7 +206,9 @@ export function Contact() {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <Card variant="elevated" padding="lg">
-              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">Send a Message</h3>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">
+                Send a Message
+              </h3>
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
                 <div className="grid sm:grid-cols-2 gap-5">
@@ -191,7 +228,7 @@ export function Contact() {
                 </div>
                 <Input
                   label="Subject"
-                  placeholder="What&apos;s this about?"
+                  placeholder="What's this about?"
                   {...register('subject')}
                   error={errors.subject?.message}
                 />
@@ -211,8 +248,13 @@ export function Contact() {
                     className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 flex items-center gap-3"
                     role="alert"
                   >
-                    <CheckCircle className="h-5 w-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0" aria-hidden="true" />
-                    <p className="text-emerald-800 dark:text-emerald-200 font-medium">{statusMessage}</p>
+                    <CheckCircle
+                      className="h-5 w-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0"
+                      aria-hidden="true"
+                    />
+                    <p className="text-emerald-800 dark:text-emerald-200 font-medium">
+                      {statusMessage}
+                    </p>
                   </motion.div>
                 )}
 
@@ -223,7 +265,10 @@ export function Contact() {
                     className="p-4 rounded-xl bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-800 flex items-center gap-3"
                     role="alert"
                   >
-                    <XCircle className="h-5 w-5 text-rose-600 dark:text-rose-400 flex-shrink-0" aria-hidden="true" />
+                    <XCircle
+                      className="h-5 w-5 text-rose-600 dark:text-rose-400 flex-shrink-0"
+                      aria-hidden="true"
+                    />
                     <p className="text-rose-800 dark:text-rose-200 font-medium">{statusMessage}</p>
                   </motion.div>
                 )}

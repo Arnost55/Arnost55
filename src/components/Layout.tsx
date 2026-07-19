@@ -107,10 +107,14 @@ export function Layout() {
                   </Link>
                 ))}
                 <div className="pt-2 border-t border-border-soft">
-                  <Button variant="gradient" fullWidth onClick={() => {
-                    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-                    setMobileMenuOpen(false);
-                  }}>
+                  <Button
+                    variant="gradient"
+                    fullWidth
+                    onClick={() => {
+                      document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                      setMobileMenuOpen(false);
+                    }}
+                  >
                     Get in Touch
                   </Button>
                 </div>
@@ -132,7 +136,8 @@ export function Layout() {
               <span>Arnika</span>
             </div>
             <p className="text-sm text-muted text-center md:text-left">
-              Built with React, TypeScript, Tailwind & Framer Motion. Designed with Arc Browser aesthetic.
+              Built with React, TypeScript, Tailwind & Framer Motion. Designed with Arc Browser
+              aesthetic.
             </p>
             <div className="flex items-center gap-6">
               <a
@@ -162,8 +167,19 @@ export function Layout() {
                 className="text-muted hover:text-accent transition-colors"
                 aria-label="Email"
               >
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
                 </svg>
               </a>
             </div>
@@ -171,7 +187,7 @@ export function Layout() {
         </div>
       </footer>
 
-      <style jsx>{`
+      <style>{`
         @keyframes slide-down {
           from {
             opacity: 0;

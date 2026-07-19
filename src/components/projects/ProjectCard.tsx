@@ -58,7 +58,10 @@ export function ProjectCard({ project, index, onOpenModal }: ProjectCardProps) {
       >
         {/* Image */}
         <div className="relative aspect-video overflow-hidden bg-slate-100 dark:bg-slate-800">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" aria-hidden="true" />
+          <div
+            className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
+            aria-hidden="true"
+          />
           <img
             src={project.image}
             alt={`${project.title} project preview`}
@@ -76,7 +79,12 @@ export function ProjectCard({ project, index, onOpenModal }: ProjectCardProps) {
 
           {/* Category Badge */}
           <div className="absolute top-4 left-4">
-            <span className={cn('px-3 py-1 rounded-full text-xs font-medium', categoryColors[project.category])}>
+            <span
+              className={cn(
+                'px-3 py-1 rounded-full text-xs font-medium',
+                categoryColors[project.category]
+              )}
+            >
               {categoryLabels[project.category]}
             </span>
           </div>
@@ -97,7 +105,10 @@ export function ProjectCard({ project, index, onOpenModal }: ProjectCardProps) {
               size="sm"
               variant="primary"
               className="flex-1"
-              onClick={(e) => { e.stopPropagation(); onOpenModal(project); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenModal(project);
+              }}
             >
               View Details
             </Button>
@@ -106,7 +117,10 @@ export function ProjectCard({ project, index, onOpenModal }: ProjectCardProps) {
                 size="sm"
                 variant="ghost"
                 className="bg-white/90 dark:bg-slate-900/90"
-                onClick={(e) => { e.stopPropagation(); window.open(project.githubUrl!, '_blank', 'noopener,noreferrer'); }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(project.githubUrl!, '_blank', 'noopener,noreferrer');
+                }}
                 aria-label={`View ${project.title} on GitHub`}
               >
                 <GithubIcon className="h-4 w-4" aria-hidden="true" />
@@ -117,7 +131,10 @@ export function ProjectCard({ project, index, onOpenModal }: ProjectCardProps) {
                 size="sm"
                 variant="ghost"
                 className="bg-white/90 dark:bg-slate-900/90"
-                onClick={(e) => { e.stopPropagation(); window.open(project.liveUrl!, '_blank', 'noopener,noreferrer'); }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(project.liveUrl!, '_blank', 'noopener,noreferrer');
+                }}
                 aria-label={`View ${project.title} live demo`}
               >
                 <ExternalLink className="h-4 w-4" aria-hidden="true" />
@@ -128,12 +145,16 @@ export function ProjectCard({ project, index, onOpenModal }: ProjectCardProps) {
 
         {/* Content */}
         <div className="p-6 flex flex-col flex-1">
-          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">{project.title}</h3>
-          <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 flex-1">{project.shortDescription}</p>
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
+            {project.title}
+          </h3>
+          <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 flex-1">
+            {project.shortDescription}
+          </p>
 
           {/* Tech Stack */}
           <div className="flex flex-wrap gap-2 mb-4">
-            {project.techStack.slice(0, 6).map((tech) => (
+            {project.techStack?.slice(0, 6).map((tech) => (
               <span
                 key={tech}
                 className="px-2.5 py-1 text-xs rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium"
@@ -141,17 +162,20 @@ export function ProjectCard({ project, index, onOpenModal }: ProjectCardProps) {
                 {tech}
               </span>
             ))}
-            {project.techStack.length > 6 && (
+            {(project.techStack?.length ?? 0) > 6 && (
               <span className="px-2.5 py-1 text-xs rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 font-medium">
-                +{project.techStack.length - 6} more
+                +{(project.techStack?.length ?? 0) - 6} more
               </span>
             )}
           </div>
 
           {/* Highlights */}
           <div className="space-y-1.5 pt-4 border-t border-slate-200 dark:border-slate-800">
-            {project.highlights.slice(0, 3).map((highlight, i) => (
-              <div key={i} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+            {project.highlights?.slice(0, 3).map((highlight, i) => (
+              <div
+                key={i}
+                className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400"
+              >
                 <span className="text-indigo-500 dark:text-indigo-400 mt-0.5 flex-shrink-0">→</span>
                 <span className="line-clamp-1">{highlight}</span>
               </div>

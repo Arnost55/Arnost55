@@ -48,9 +48,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.17)
-      '@vitejs/vite-plugin-react-monorepo':
-        specifier: github:vitejs/vite-plugin-react#v4.3.1
-        version: https://codeload.github.com/vitejs/vite-plugin-react/tar.gz/1609186b9f379d4c1cf75c60e878d8b4f7675ab3
       autoprefixer:
         specifier: ^10.5.4
         version: 10.5.4(postcss@8.5.19)
@@ -702,11 +699,6 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
-
-  '@vitejs/vite-plugin-react-monorepo@https://codeload.github.com/vitejs/vite-plugin-react/tar.gz/1609186b9f379d4c1cf75c60e878d8b4f7675ab3':
-    resolution: {gitHosted: true, integrity: sha512-Zu9E3+xQbbo+mLI1ErPcepRbLXj0GyaK5swGi/pgraB34JFlJzB2NoWRSpQvwqJrtLHWp0klcw7LxlUzqp3Pbg==, tarball: https://codeload.github.com/vitejs/vite-plugin-react/tar.gz/1609186b9f379d4c1cf75c60e878d8b4f7675ab3}
-    version: 0.0.0
-    engines: {node: ^14.18.0 || >=16.0.0}
 
   autoprefixer@10.5.4:
     resolution: {integrity: sha512-MaU0U/za7N3r6brxD4YB/l4NSrFzLPlANv6wEuQVaIPlD3L4W9rFcQPbL/EilY9BHhHvhfcz3gInDLrEtWT4EA==}
@@ -1505,8 +1497,6 @@ snapshots:
       vite: 5.4.21(@types/node@24.13.3)(lightningcss@1.32.0)
     transitivePeerDependencies:
       - supports-color
-
-  '@vitejs/vite-plugin-react-monorepo@https://codeload.github.com/vitejs/vite-plugin-react/tar.gz/1609186b9f379d4c1cf75c60e878d8b4f7675ab3': {}
 
   autoprefixer@10.5.4(postcss@8.5.19):
     dependencies:

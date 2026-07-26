@@ -33,14 +33,7 @@ const categoryColors = {
   content: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
 };
 
-export function ProjectModal({
-  project,
-  onClose,
-  onNext,
-  onPrevious,
-  hasNext,
-  hasPrevious,
-}: ProjectModalProps) {
+export function ProjectModal({ project, onClose, onNext, onPrevious, hasNext, hasPrevious }: ProjectModalProps) {
   if (!project) return null;
 
   const CategoryIcon = categoryIcons[project.category];
@@ -54,7 +47,13 @@ export function ProjectModal({
   };
 
   return (
-    <Modal isOpen={!!project} onClose={onClose} size="xl" closeOnEscape onKeyDown={handleKeyDown}>
+    <Modal
+      isOpen={!!project}
+      onClose={onClose}
+      size="xl"
+      closeOnEscape
+      onKeyDown={handleKeyDown}
+    >
       <div className="max-h-[85vh] overflow-y-auto">
         {/* Project Images/Gallery */}
         <div className="relative aspect-video rounded-t-2xl overflow-hidden bg-slate-100 dark:bg-slate-800">
@@ -88,9 +87,7 @@ export function ProjectModal({
               <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2">
                 {project.title}
               </h2>
-              <p className="text-lg text-slate-600 dark:text-slate-400">
-                {project.shortDescription}
-              </p>
+              <p className="text-lg text-slate-600 dark:text-slate-400">{project.shortDescription}</p>
             </div>
             <button
               onClick={onClose}
@@ -103,30 +100,21 @@ export function ProjectModal({
 
           {/* Description */}
           <div>
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-3">
-              About This Project
-            </h3>
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-3">About This Project</h3>
             <div className="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 leading-relaxed">
-              {project.fullDescription?.split('\n').map((paragraph: string, i: number) => (
-                <p key={i} className="mb-4">
-                  {paragraph}
-                </p>
+              {(project.fullDescription ?? '').split('\n').map((paragraph: string, i: number) => (
+                <p key={i} className="mb-4">{paragraph}</p>
               ))}
             </div>
           </div>
 
           {/* Highlights */}
-          {project.highlights?.length && (
+          {(project.highlights ?? []).length > 0 && (
             <div>
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-3">
-                Key Highlights
-              </h3>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-3">Key Highlights</h3>
               <ul className="grid sm:grid-cols-2 gap-3">
-                {project.highlights.map((highlight: string, index: number) => (
-                  <li
-                    key={index}
-                    className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50"
-                  >
+                {(project.highlights ?? []).map((highlight: string, index: number) => (
+                  <li key={index} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
                     <span className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center mt-0.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" aria-hidden="true" />
                     </span>
@@ -139,11 +127,9 @@ export function ProjectModal({
 
           {/* Tech Stack */}
           <div>
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-3">
-              Tech Stack
-            </h3>
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-3">Tech Stack</h3>
             <div className="flex flex-wrap gap-2">
-              {project.techStack?.map((tech: string) => (
+              {(project.techStack ?? []).map((tech: string) => (
                 <span
                   key={tech}
                   className="px-3 py-1.5 text-sm font-medium rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"

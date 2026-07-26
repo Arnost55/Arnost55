@@ -118,8 +118,8 @@ export function About() {
                 transition={{ delay: 0.5 + index * 0.1, duration: 0.4 }}
                 className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 transition-all duration-300 hover:shadow-xl"
               >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-current to-current/50 flex items-center justify-center mb-4" style={{ backgroundColor: highlight.color.replace('text-', '').replace('dark:text-', '') }}>
-                  <highlight.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 ring-1 ring-slate-200/70 dark:ring-slate-700/70 flex items-center justify-center mb-4">
+                  <highlight.icon className={`h-6 w-6 ${highlight.color}`} aria-hidden="true" />
                 </div>
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">{highlight.title}</h3>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{highlight.description}</p>

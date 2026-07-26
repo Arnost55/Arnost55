@@ -1,58 +1,84 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/Button';
-import { Container } from '@/components/Container';
-import { Home, Search, RotateCcw } from 'lucide-react';
+import { Home, Search, Globe } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-export default function NotFound() {
+export function NotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center pt-20">
-      <Container size="sm">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="text-center max-w-md"
+      >
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-          className="text-center glass p-12 md:p-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mb-8"
         >
-          <motion.div
-            initial={{ rotate: 0 }}
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2, ease: 'linear' }}
-            className="inline-flex items-center justify-center w-20 h-20 rounded-full glass-light mb-6"
-          >
-            <Search className="h-10 w-10 text-muted" />
-          </motion.div>
-
-          <h1 className="text-section text-fg mb-4">Page Not Found</h1>
-          <p className="text-lead text-fg-2 mb-8 max-w-md mx-auto">
-            Sorry, we couldn't find the page you're looking for. It might have
-            been moved or doesn't exist.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" asChild>
-              <Link to="/">
-                <Home className="h-4 w-4 mr-2" />
-                Back to Home
-              </Link>
-            </Button>
-            <Button variant="glass" size="lg">
-              <RotateCcw className="h-4 w-4 mr-2" />
-              Refresh Page
-            </Button>
-          </div>
-
-          <p className="mt-8 text-sm text-muted">
-            Or{' '}
-            <Link to="/#projects" className="text-accent hover:underline">
-              browse projects
-            </Link>
-            {' '}instead.
-          </p>
+          <span className="text-9xl font-bold bg-gradient-to-r from-indigo-600 via-blue-600 to-emerald-500 bg-clip-text text-transparent">
+            404
+          </span>
         </motion.div>
-      </Container>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4"
+        >
+          Page Not Found
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-slate-600 dark:text-slate-400 mb-8 text-lg"
+        >
+          Sorry, we couldn&apos;t find the page you&apos;re looking for. It might have been moved or doesn&apos;t exist.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors"
+          >
+            <Home className="h-5 w-5" />
+            Back to Home
+          </Link>
+          <Link
+            to="/#projects"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+          >
+            <Search className="h-5 w-5" />
+            Browse Projects
+          </Link>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mt-12 flex items-center justify-center gap-6 text-slate-400"
+        >
+          <a href="https://github.com/Arnost55" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" aria-label="GitHub">
+            <Globe className="h-6 w-6" />
+          </a>
+          <a href="https://linkedin.com/in/arnost-dobrucky" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" aria-label="LinkedIn">
+            <Globe className="h-6 w-6" />
+          </a>
+          <a href="mailto:arnstdobrucky48@gmail.com" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" aria-label="Email">
+            <Globe className="h-6 w-6" />
+          </a>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }

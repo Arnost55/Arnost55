@@ -53,9 +53,11 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-slate-100 leading-tight mb-6"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
             >
-              Arnošt Dobrucký
+              <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-emerald-500 bg-clip-text text-transparent">
+                Arnošt Dobrucký
+              </span>
             </motion.h1>
 
             {/* Title */}
@@ -93,8 +95,8 @@ export function Hero() {
                   transition={{ delay: 0.7 + index * 0.1, duration: 0.4 }}
                   className={cn(
                     'flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border',
-                    'bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm',
-                    `border-${highlight.color.replace('text-', '').replace('dark:text-', '')}/30`,
+                    'bg-white/80 dark:bg-slate-900/70 backdrop-blur-sm',
+                    'border-slate-200 dark:border-slate-700 shadow-sm',
                     highlight.color
                   )}
                 >

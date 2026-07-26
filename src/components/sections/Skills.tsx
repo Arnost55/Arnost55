@@ -85,31 +85,26 @@ export function Skills() {
                   <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">{category.category}</h3>
                 </div>
 
-                <div className="space-y-3">
+                <div className="flex flex-wrap gap-2">
                   {category.skills.map((skill, skillIndex) => (
                     <motion.div
                       key={skill.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.4 + catIndex * 0.1 + skillIndex * 0.05, duration: 0.3 }}
-                      className="group-skill"
+                      className="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-800/60 pl-3 pr-2.5 py-1.5"
+                      title={`${skill.name} — ${skill.proficiency}/5`}
                     >
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{skill.name}</span>
-                        {skill.proficiency && (
-                          <span className="text-xs text-slate-500 dark:text-slate-400">
-                            {skill.proficiency}/5
-                          </span>
-                        )}
-                      </div>
-                      <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${(skill.proficiency || 5) * 20}%` }}
-                          transition={{ delay: 0.5 + catIndex * 0.1 + skillIndex * 0.05, duration: 0.8, ease: 'easeOut' }}
-                          className="h-full bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full"
-                        />
-                      </div>
+                      <span className="text-sm font-medium text-slate-700 dark:text-slate-200">{skill.name}</span>
+                      <span className="flex items-center gap-1" aria-hidden="true">
+                        {[1, 2, 3, 4, 5].map((n) => (
+                          <span
+                            key={n}
+                            className={n <= (skill.proficiency || 5) ? 'prof-dot prof-dot--on' : 'prof-dot'}
+                          />
+                        ))}
+                      </span>
+                      <span className="sr-only">Proficiency {skill.proficiency} out of 5</span>
                     </motion.div>
                   ))}
                 </div>

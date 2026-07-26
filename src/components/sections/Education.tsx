@@ -124,7 +124,7 @@ export function Education() {
               >
                 <Card variant="outlined" padding="lg" hover className="h-full text-center">
                   <div className="w-14 h-14 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center mx-auto mb-4">
-                    <item.icon className="h-7 w-7" style={{ color: item.color }} aria-hidden="true" />
+                    <item.icon className={`h-7 w-7 ${item.color}`} aria-hidden="true" />
                   </div>
                   <h4 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">{item.title}</h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm">{item.desc}</p>

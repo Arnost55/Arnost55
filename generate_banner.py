@@ -214,7 +214,7 @@ def build_portrait_layer(dots, color, dot_size=2.2):
             paths.append(f"M{x},{y}h1")
         d = "".join(paths)
         parts.append(
-            f'<g class="pd">'
+            f'<g>'
             f'<animateTransform attributeName="transform" type="translate" '
             f'values="0,0;{dx:.1f},{dy:.1f};0,0;0,0" '
             f'keyTimes="{drift_kt}" '
@@ -412,6 +412,7 @@ def build_portrait_frame(is_dark=True):
 def generate_banner(dots, is_dark=True):
     ch = PALETTE["ui_chrome_dark"] if is_dark else PALETTE["ui_chrome_light"]
     color = PALETTE["portrait_dark"] if is_dark else PALETTE["portrait_light"]
+    bg = PALETTE["bg"] if is_dark else "#F0F0F0"
 
     px, py = 25, 65  # portrait inner area offset
 
@@ -422,29 +423,27 @@ def generate_banner(dots, is_dark=True):
 
     frame_svg, fx, fy = build_portrait_frame(is_dark)
 
-    # CSS for portrait fade — visible during portrait phase, hidden during logos
-    # Using CSS @keyframes with visibility (more robust than opacity in SVG <img> contexts)
-    pct_p1 = int(P1 * 100)
-    pct_p2 = int(P2 * 100)
-    pct_p7 = int(P7 * 100)
-    css = (
-        f'<style>'
-        f'@keyframes pfade {{'
-        f'0%{{opacity:1}}'
-        f'{pct_p1}%{{opacity:1}}'
-        f'{pct_p2}%{{opacity:0}}'
-        f'{pct_p7}%{{opacity:0}}'
-        f'100%{{opacity:1}}'
-        f'}}'
-        f'.pd{{animation:pfade {LOOP_DUR}s linear infinite}}'
-        f'</style>'
+    # SMIL opacity animation for the portrait overlay
+    # Uses a rect with the background color that fades in/out to hide/reveal the portrait
+    # This is more reliable than CSS animations in SVG <img> contexts
+    p1_kt = f"{P1:.4f}"
+    p2_kt = f"{P2:.4f}"
+    p7_kt = f"{P7:.4f}"
+    
+    overlay = (
+        f'<rect x="0" y="0" width="{PORTRAIT_W}" height="{PORTRAIT_H}" '
+        f'fill="{bg}" rx="4">'
+        f'<animate attributeName="opacity" '
+        f'values="0;0;1;1;0;0" '
+        f'keyTimes="0;{p1_kt};{p2_kt};{p7_kt};{P8:.4f};1" '
+        f'dur="{LOOP_DUR}s" repeatCount="indefinite"/>'
+        f'</rect>'
     )
 
     svg = (
         f'<svg xmlns="http://www.w3.org/2000/svg" '
         f'width="{CANVAS_W}" height="{CANVAS_H}" '
         f'viewBox="0 0 {CANVAS_W} {CANVAS_H}">\n'
-        f'{css}\n'
         f'{build_terminal_border(is_dark)}\n'
         f'{frame_svg}\n'
         f'<g transform="translate({fx},{fy})">\n'
@@ -454,6 +453,7 @@ def generate_banner(dots, is_dark=True):
         f'  <g clip-path="url(#pc-{"d" if is_dark else "l"})">\n'
         f'    <!-- Intro -->\n{intro}\n'
         f'    <!-- Portrait drift bands -->\n{portrait}\n'
+        f'    <!-- Portrait overlay (hides portrait during logo phases) -->\n{overlay}\n'
         f'    <!-- Travellers -->\n{travellers}\n'
         f'  </g>\n'
         f'</g>\n'

@@ -6,25 +6,25 @@
   <g transform="translate(20, 65)">
     <text font-family="Segoe UI, sans-serif" font-size="12" fill="#1A1A2E">TypeScript</text>
     <rect x="160" y="-2" width="200" height="12" rx="6" fill="#F0F0F0" stroke="#0891B2" stroke-width="0.5" opacity="0.3"/>
-    <rect x="160" y="-2" width="174.73214037856624" height="12" rx="6" fill="#22D3EE"/>
+    <rect x="160" y="-2" width="174.744344007411" height="12" rx="6" fill="#22D3EE"/>
     <text x="370" font-family="Segoe UI, sans-serif" font-size="11" fill="#1A1A2E" text-anchor="end">62.4%</text>
   </g>
   <g transform="translate(20, 87)">
     <text font-family="Segoe UI, sans-serif" font-size="12" fill="#1A1A2E">HTML</text>
     <rect x="160" y="-2" width="200" height="12" rx="6" fill="#F0F0F0" stroke="#0891B2" stroke-width="0.5" opacity="0.3"/>
-    <rect x="160" y="-2" width="55.40746824602261" height="12" rx="6" fill="#A78BFA"/>
+    <rect x="160" y="-2" width="55.411338010201305" height="12" rx="6" fill="#A78BFA"/>
     <text x="370" font-family="Segoe UI, sans-serif" font-size="11" fill="#1A1A2E" text-anchor="end">19.8%</text>
   </g>
   <g transform="translate(20, 109)">
     <text font-family="Segoe UI, sans-serif" font-size="12" fill="#1A1A2E">JavaScript</text>
     <rect x="160" y="-2" width="200" height="12" rx="6" fill="#F0F0F0" stroke="#0891B2" stroke-width="0.5" opacity="0.3"/>
-    <rect x="160" y="-2" width="18.334481219568037" height="12" rx="6" fill="#10B981"/>
+    <rect x="160" y="-2" width="18.33576173500944" height="12" rx="6" fill="#10B981"/>
     <text x="370" font-family="Segoe UI, sans-serif" font-size="11" fill="#1A1A2E" text-anchor="end">6.5%</text>
   </g>
   <g transform="translate(20, 131)">
     <text font-family="Segoe UI, sans-serif" font-size="12" fill="#1A1A2E">CSS</text>
     <rect x="160" y="-2" width="200" height="12" rx="6" fill="#F0F0F0" stroke="#0891B2" stroke-width="0.5" opacity="0.3"/>
-    <rect x="160" y="-2" width="13.567256832950042" height="12" rx="6" fill="#F59E0B"/>
+    <rect x="160" y="-2" width="13.568204396268799" height="12" rx="6" fill="#F59E0B"/>
     <text x="370" font-family="Segoe UI, sans-serif" font-size="11" fill="#1A1A2E" text-anchor="end">4.8%</text>
   </g>
   <g transform="translate(20, 153)">

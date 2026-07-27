@@ -14,7 +14,7 @@ import cairosvg
 import io as pyio
 import numpy as np
 from PIL import Image, ImageFilter
-from scipy import ndimage, spatial
+from scipy import spatial
 
 # ── Configuration ──────────────────────────────────────────────────────────
 
@@ -88,9 +88,11 @@ def process_photo(photo_path):
     w, h = img.size
     crop_h = int(h * 0.22)
     crop_w = int(crop_h * PORTRAIT_W / PORTRAIT_H)
-    cx, cy = 0.5, 0.09
-    left = max(0, int(w * cx) - crop_w // 2)
-    top = max(0, int(h * cy) - int(crop_h * 0.25))
+    # Face center at ~(768, 185) in 1536x2048 image
+    face_x, face_y = 768, 185
+    # Center horizontally, place face at ~1/3 from top of portrait
+    left = max(0, face_x - crop_w // 2)
+    top = max(0, face_y - int(crop_h * 0.35))  # ~50px above face, more headroom
     right = min(w, left + crop_w)
     bottom = min(h, top + crop_h)
     if right - left < crop_w:
@@ -104,20 +106,12 @@ def process_photo(photo_path):
     blur = np.array(cropped.convert("L").filter(ImageFilter.GaussianBlur(3)), dtype=np.float64)
     gray = np.clip(gray + 1.4 * (gray - blur), 0, 255)
     gray = np.clip(128 + (gray - 128) * 1.3, 0, 255).astype(np.uint8)
+    
+    # Dark mode: use the original dither (no background segmentation needed)
+    # The dither naturally puts dots on darker areas (subject) and skips lighter areas (wall)
     dots = floyd_steinberg(gray.astype(np.float64))
     dots_light = floyd_steinberg((255 - gray).astype(np.float64))
     return dots, dots_light, gray
-
-
-def segment_background(gray_img):
-    mask = gray_img < np.percentile(gray_img, 40)
-    mask = ndimage.binary_closing(mask, structure=np.ones((5, 5)), iterations=2)
-    mask = ndimage.binary_fill_holes(mask)
-    labeled, n = ndimage.label(mask)
-    if n > 0:
-        sizes = ndimage.sum(mask, labeled, range(1, n + 1))
-        mask = labeled == (np.argmax(sizes) + 1)
-    return mask
 
 
 # ── Logo paths ─────────────────────────────────────────────────────────────
@@ -206,6 +200,10 @@ def build_portrait_layer(dots, color, dot_size=2.2):
     # Drift toward center (150, 170) during portrait phase, return during transition
     drift_kt = fmt_kt(0, P1 * 0.5, P1, P2)
     drift_splines = "0.4 0 0.6 1; 0.4 0 0.6 1; 0.4 0 0.6 1"
+    # Opacity: visible during portrait, fade out during first transition, hidden through logos,
+    # fade back in during last transition
+    op_kt = fmt_kt(0, P1, P2, P7, P8)
+    op_vals = "1;1;0;0;1"
 
     for bi in range(n_bands):
         idxs = bands.get(bi, [])
@@ -226,6 +224,9 @@ def build_portrait_layer(dots, color, dot_size=2.2):
             f'keyTimes="{drift_kt}" '
             f'dur="{LOOP_DUR}s" repeatCount="indefinite" '
             f'calcMode="spline" keySplines="{drift_splines}"/>'
+            f'<animate attributeName="opacity" '
+            f'values="{op_vals}" keyTimes="{op_kt}" '
+            f'dur="{LOOP_DUR}s" repeatCount="indefinite"/>'
             f'<path d="{esc(d)}" '
             f'stroke="{color}" stroke-width="{dot_size}" '
             f'stroke-linecap="square" fill="none" '
@@ -415,13 +416,9 @@ def build_portrait_frame(is_dark=True):
 
 # ── Main banner generator ──────────────────────────────────────────────────
 
-def generate_banner(dots, gray_img=None, is_dark=True):
+def generate_banner(dots, is_dark=True):
     ch = PALETTE["ui_chrome_dark"] if is_dark else PALETTE["ui_chrome_light"]
     color = PALETTE["portrait_dark"] if is_dark else PALETTE["portrait_light"]
-
-    if is_dark and gray_img is not None:
-        mask = segment_background(gray_img)
-        dots = dots & mask
 
     px, py = 25, 65  # portrait inner area offset
 
@@ -463,7 +460,7 @@ def main():
     dots, dots_light, gray_img = process_photo("assets/photo.jpg")
     print(f"Dark dots: {dots.sum()}, Light dots: {dots_light.sum()}")
     print("Generating dark.svg...")
-    dark_svg = generate_banner(dots, gray_img=gray_img, is_dark=True)
+    dark_svg = generate_banner(dots, is_dark=True)
     Path("dark.svg").write_text(dark_svg)
     print(f"dark.svg written ({len(dark_svg)} bytes)")
     print("Generating light.svg...")

@@ -200,10 +200,6 @@ def build_portrait_layer(dots, color, dot_size=2.2):
     # Drift toward center (150, 170) during portrait phase, return during transition
     drift_kt = fmt_kt(0, P1 * 0.5, P1, P2)
     drift_splines = "0.4 0 0.6 1; 0.4 0 0.6 1; 0.4 0 0.6 1"
-    # Opacity: visible during portrait, fade out during first transition, hidden through logos,
-    # fade back in during last transition
-    op_kt = fmt_kt(0, P1, P2, P7, P8)
-    op_vals = "1;1;0;0;1"
 
     for bi in range(n_bands):
         idxs = bands.get(bi, [])
@@ -218,15 +214,12 @@ def build_portrait_layer(dots, color, dot_size=2.2):
             paths.append(f"M{x},{y}h1")
         d = "".join(paths)
         parts.append(
-            f'<g>'
+            f'<g class="pd">'
             f'<animateTransform attributeName="transform" type="translate" '
             f'values="0,0;{dx:.1f},{dy:.1f};0,0;0,0" '
             f'keyTimes="{drift_kt}" '
             f'dur="{LOOP_DUR}s" repeatCount="indefinite" '
             f'calcMode="spline" keySplines="{drift_splines}"/>'
-            f'<animate attributeName="opacity" '
-            f'values="{op_vals}" keyTimes="{op_kt}" '
-            f'dur="{LOOP_DUR}s" repeatCount="indefinite"/>'
             f'<path d="{esc(d)}" '
             f'stroke="{color}" stroke-width="{dot_size}" '
             f'stroke-linecap="square" fill="none" '
@@ -429,10 +422,27 @@ def generate_banner(dots, is_dark=True):
 
     frame_svg, fx, fy = build_portrait_frame(is_dark)
 
+    # CSS for portrait fade — visible during portrait phase, hidden during logos
+    # Using CSS @keyframes because it's more reliable in <img> contexts than SMIL
+    pct_p1 = P1 * 100
+    pct_p2 = P2 * 100
+    pct_p7 = P7 * 100
+    css = (
+        f'<style>'
+        f'@keyframes pfade {{'
+        f'0%{{opacity:1}}{pct_p1:.1f}%{{opacity:1}}'
+        f'{pct_p2:.1f}%{{opacity:0}}{pct_p7:.1f}%{{opacity:0}}'
+        f'100%{{opacity:1}}'
+        f'}}'
+        f'.pd{{animation:pfade {LOOP_DUR}s ease-in-out infinite}}'
+        f'</style>'
+    )
+
     svg = (
         f'<svg xmlns="http://www.w3.org/2000/svg" '
         f'width="{CANVAS_W}" height="{CANVAS_H}" '
         f'viewBox="0 0 {CANVAS_W} {CANVAS_H}">\n'
+        f'{css}\n'
         f'{build_terminal_border(is_dark)}\n'
         f'{frame_svg}\n'
         f'<g transform="translate({fx},{fy})">\n'

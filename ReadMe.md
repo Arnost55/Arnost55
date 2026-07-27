@@ -1,7 +1,7 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="banner-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="banner-light.svg">
-  <img alt="Arnost55 profile banner" src="banner-dark.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="bnr-d.svg">
+  <source media="(prefers-color-scheme: light)" srcset="bnr-l.svg">
+  <img alt="Arnost55 profile banner" src="bnr-d.svg">
 </picture>
 
 ---

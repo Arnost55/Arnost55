@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200">
+  <rect x="0.5" y="0.5" width="399" height="199" rx="8" fill="#F0F0F0" stroke="#0891B2" stroke-width="1"/>
+  <text x="20" y="30" font-family="Segoe UI, sans-serif" font-size="18" font-weight="700" fill="#0891B2">Top Languages</text>
+  <line x1="20" y1="40" x2="380" y2="40" stroke="#0891B2" stroke-width="0.5" opacity="0.3"/>
+  
+  <g transform="translate(20, 65)">
+    <text font-family="Segoe UI, sans-serif" font-size="12" fill="#1A1A2E">TypeScript</text>
+    <rect x="160" y="-2" width="200" height="12" rx="6" fill="#F0F0F0" stroke="#0891B2" stroke-width="0.5" opacity="0.3"/>
+    <rect x="160" y="-2" width="174.81454737962883" height="12" rx="6" fill="#22D3EE"/>
+    <text x="370" font-family="Segoe UI, sans-serif" font-size="11" fill="#1A1A2E" text-anchor="end">62.4%</text>
+  </g>
+  <g transform="translate(20, 87)">
+    <text font-family="Segoe UI, sans-serif" font-size="12" fill="#1A1A2E">HTML</text>
+    <rect x="160" y="-2" width="200" height="12" rx="6" fill="#F0F0F0" stroke="#0891B2" stroke-width="0.5" opacity="0.3"/>
+    <rect x="160" y="-2" width="55.43359946197826" height="12" rx="6" fill="#A78BFA"/>
+    <text x="370" font-family="Segoe UI, sans-serif" font-size="11" fill="#1A1A2E" text-anchor="end">19.8%</text>
+  </g>
+  <g transform="translate(20, 109)">
+    <text font-family="Segoe UI, sans-serif" font-size="12" fill="#1A1A2E">JavaScript</text>
+    <rect x="160" y="-2" width="200" height="12" rx="6" fill="#F0F0F0" stroke="#0891B2" stroke-width="0.5" opacity="0.3"/>
+    <rect x="160" y="-2" width="18.343128109659748" height="12" rx="6" fill="#10B981"/>
+    <text x="370" font-family="Segoe UI, sans-serif" font-size="11" fill="#1A1A2E" text-anchor="end">6.6%</text>
+  </g>
+  <g transform="translate(20, 131)">
+    <text font-family="Segoe UI, sans-serif" font-size="12" fill="#1A1A2E">CSS</text>
+    <rect x="160" y="-2" width="200" height="12" rx="6" fill="#F0F0F0" stroke="#0891B2" stroke-width="0.5" opacity="0.3"/>
+    <rect x="160" y="-2" width="13.573655409341463" height="12" rx="6" fill="#F59E0B"/>
+    <text x="370" font-family="Segoe UI, sans-serif" font-size="11" fill="#1A1A2E" text-anchor="end">4.8%</text>
+  </g>
+  <g transform="translate(20, 153)">
+    <text font-family="Segoe UI, sans-serif" font-size="12" fill="#1A1A2E">Rust</text>
+    <rect x="160" y="-2" width="200" height="12" rx="6" fill="#F0F0F0" stroke="#0891B2" stroke-width="0.5" opacity="0.3"/>
+    <rect x="160" y="-2" width="10" height="12" rx="6" fill="#EF4444"/>
+    <text x="370" font-family="Segoe UI, sans-serif" font-size="11" fill="#1A1A2E" text-anchor="end">2.4%</text>
+  </g>
+  <g transform="translate(20, 175)">
+    <text font-family="Segoe UI, sans-serif" font-size="12" fill="#1A1A2E">Python</text>
+    <rect x="160" y="-2" width="200" height="12" rx="6" fill="#F0F0F0" stroke="#0891B2" stroke-width="0.5" opacity="0.3"/>
+    <rect x="160" y="-2" width="10" height="12" rx="6" fill="#8B5CF6"/>
+    <text x="370" font-family="Segoe UI, sans-serif" font-size="11" fill="#1A1A2E" text-anchor="end">2.0%</text>
+  </g>
+  <g transform="translate(20, 197)">
+    <text font-family="Segoe UI, sans-serif" font-size="12" fill="#1A1A2E">Astro</text>
+    <rect x="160" y="-2" width="200" height="12" rx="6" fill="#F0F0F0" stroke="#0891B2" stroke-width="0.5" opacity="0.3"/>
+    <rect x="160" y="-2" width="10" height="12" rx="6" fill="#EC4899"/>
+    <text x="370" font-family="Segoe UI, sans-serif" font-size="11" fill="#1A1A2E" text-anchor="end">1.4%</text>
+  </g>
+  <g transform="translate(20, 219)">
+    <text font-family="Segoe UI, sans-serif" font-size="12" fill="#1A1A2E">Shell</text>
+    <rect x="160" y="-2" width="200" height="12" rx="6" fill="#F0F0F0" stroke="#0891B2" stroke-width="0.5" opacity="0.3"/>
+    <rect x="160" y="-2" width="10" height="12" rx="6" fill="#14B8A6"/>
+    <text x="370" font-family="Segoe UI, sans-serif" font-size="11" fill="#1A1A2E" text-anchor="end">0.4%</text>
+  </g>
+  
+  <text x="380" y="190" font-family="Segoe UI, sans-serif" font-size="9" fill="#0891B2" text-anchor="end" opacity="0.5">Updated 2026-07-27</text>
+</svg>

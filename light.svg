@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1180" height="610" viewBox="0 0 1180 610">
-<style>@keyframes pfade {0%{opacity:1}21.1%{opacity:1}30.3%{opacity:0}90.8%{opacity:0}100%{opacity:1}}.pd{animation:pfade 14.2s ease-in-out infinite}</style>
+<style>@keyframes pfade {0%{opacity:1}21%{opacity:1}30%{opacity:0}90%{opacity:0}100%{opacity:1}}.pd{animation:pfade 14.2s linear infinite}</style>
 <rect x="0" y="0" width="1180" height="610" fill="#F0F0F0" rx="12" stroke="#0891B2" stroke-width="2"/><rect x="0" y="0" width="1180" height="36" fill="#0891B2" opacity="0.1" rx="12"/><circle cx="12" cy="18" r="6" fill="#FF5F56" opacity="0.8"/><circle cx="32" cy="18" r="6" fill="#FFBD2E" opacity="0.8"/><circle cx="52" cy="18" r="6" fill="#27C93F" opacity="0.8"/><text x="590" y="24" font-family="Menlo,Consolas,monospace" font-size="13" fill="#0891B2" text-anchor="middle" opacity="0.8">profile.sh --live</text>
 <rect x="15" y="50" width="320" height="380" fill="none" stroke="#0891B2" stroke-width="1.5" rx="6"/><text x="175" y="422" font-family="Menlo,Consolas,monospace" font-size="11" fill="#0891B2" text-anchor="middle" opacity="0.6">VISUAL.MAP</text>
 <g transform="translate(25,65)">

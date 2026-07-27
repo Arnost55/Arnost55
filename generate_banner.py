@@ -423,18 +423,20 @@ def generate_banner(dots, is_dark=True):
     frame_svg, fx, fy = build_portrait_frame(is_dark)
 
     # CSS for portrait fade — visible during portrait phase, hidden during logos
-    # Using CSS @keyframes because it's more reliable in <img> contexts than SMIL
-    pct_p1 = P1 * 100
-    pct_p2 = P2 * 100
-    pct_p7 = P7 * 100
+    # Using CSS @keyframes with visibility (more robust than opacity in SVG <img> contexts)
+    pct_p1 = int(P1 * 100)
+    pct_p2 = int(P2 * 100)
+    pct_p7 = int(P7 * 100)
     css = (
         f'<style>'
         f'@keyframes pfade {{'
-        f'0%{{opacity:1}}{pct_p1:.1f}%{{opacity:1}}'
-        f'{pct_p2:.1f}%{{opacity:0}}{pct_p7:.1f}%{{opacity:0}}'
+        f'0%{{opacity:1}}'
+        f'{pct_p1}%{{opacity:1}}'
+        f'{pct_p2}%{{opacity:0}}'
+        f'{pct_p7}%{{opacity:0}}'
         f'100%{{opacity:1}}'
         f'}}'
-        f'.pd{{animation:pfade {LOOP_DUR}s ease-in-out infinite}}'
+        f'.pd{{animation:pfade {LOOP_DUR}s linear infinite}}'
         f'</style>'
     )
 

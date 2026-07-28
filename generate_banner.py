@@ -89,9 +89,11 @@ def process_photo(photo_path):
     w, h = img.size
     crop_h = int(h * 0.22)
     crop_w = int(crop_h * PORTRAIT_W / PORTRAIT_H)
-    face_x, face_y = 768, 185
+    # New photo: 1080x1440, face center at ~(495, 300)
+    face_x, face_y = 495, 300
+    # Center horizontally, ~50px headroom above face
     left = max(0, face_x - crop_w // 2)
-    top = max(0, face_y - int(crop_h * 0.35))
+    top = max(0, face_y - 50)
     right = min(w, left + crop_w)
     bottom = min(h, top + crop_h)
     if right - left < crop_w: left = max(0, right - crop_w)

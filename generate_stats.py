@@ -10,7 +10,6 @@ from datetime import datetime
 from pathlib import Path
 
 import requests
-import numpy as np
 
 # ── Config ──────────────────────────────────────────────────────────────────
 

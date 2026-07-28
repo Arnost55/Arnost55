@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-Generate animated GitHub profile banner SVG — performance-optimized for mobile.
-Uses CSS transitions (GPU-accelerated) instead of SMIL for drift bands,
-and pre-computed path cross-fades for travellers instead of 900 individual SMIL animations.
+Generate animated GitHub profile banner SVG.
+Approach: portrait dots animate away during logo phases (animateTransform),
+logos are separate static paths cross-faded with CSS. 
+Based on the working technique from arifhaxn's profile.
 """
 
 import random
@@ -23,10 +24,9 @@ PORTRAIT_W = 300
 PORTRAIT_H = 340
 PANEL_X = int(CANVAS_W * 0.40)
 PANEL_W = CANVAS_W - PANEL_X - 40
-DOT_SIZE = 2.0          # slightly smaller dots
-DITHER_THRESHOLD = 140  # higher = fewer dots (performance)
-N_BANDS = 30            # fewer drift bands
-N_TRAVELLERS = 300      # fewer travellers
+DOT_SIZE = 2.0
+DITHER_THRESHOLD = 140
+N_CLUSTERS = 100  # number of dot clusters (animateTransform groups)
 
 PALETTE = {
     "portrait_dark": "#A78BFA",
@@ -35,6 +35,7 @@ PALETTE = {
     "ui_chrome_light": "#0891B2",
     "accent": "#10B981",
     "bg": "#0A101F",
+    "bg_light": "#F0F0F0",
 }
 
 # Phase timing
@@ -48,14 +49,17 @@ T_NEXTJS = 2.0
 T_TRANS4 = 1.3
 LOOP = 14.2
 
-P1 = T_PORTRAIT / LOOP        # 0.211
-P2 = (T_PORTRAIT + T_TRANS1) / LOOP       # 0.303
-P3 = (T_PORTRAIT + T_TRANS1 + T_FLUTTER) / LOOP     # 0.444
-P4 = (T_PORTRAIT + T_TRANS1 + T_FLUTTER + T_TRANS2) / LOOP      # 0.535
-P5 = (T_PORTRAIT + T_TRANS1 + T_FLUTTER + T_TRANS2 + T_PYTHON) / LOOP       # 0.676
-P6 = (T_PORTRAIT + T_TRANS1 + T_FLUTTER + T_TRANS2 + T_PYTHON + T_TRANS3) / LOOP     # 0.768
-P7 = (T_PORTRAIT + T_TRANS1 + T_FLUTTER + T_TRANS2 + T_PYTHON + T_TRANS3 + T_NEXTJS) / LOOP      # 0.908
+P1 = T_PORTRAIT / LOOP         # 0.211
+P2 = (T_PORTRAIT + T_TRANS1) / LOOP        # 0.303
+P3 = (T_PORTRAIT + T_TRANS1 + T_FLUTTER) / LOOP      # 0.444
+P4 = (T_PORTRAIT + T_TRANS1 + T_FLUTTER + T_TRANS2) / LOOP       # 0.535
+P5 = (T_PORTRAIT + T_TRANS1 + T_FLUTTER + T_TRANS2 + T_PYTHON) / LOOP        # 0.676
+P6 = (T_PORTRAIT + T_TRANS1 + T_FLUTTER + T_TRANS2 + T_PYTHON + T_TRANS3) / LOOP      # 0.768
+P7 = (T_PORTRAIT + T_TRANS1 + T_FLUTTER + T_TRANS2 + T_PYTHON + T_TRANS3 + T_NEXTJS) / LOOP       # 0.908
 P8 = 1.0
+
+# KeyTimes for the 9-keyframe pattern (matching arifhaxn's approach)
+KT = f"0.000;{P1:.3f};{P2:.3f};{P3:.3f};{P4:.3f};{P5:.3f};{P6:.3f};{P7:.3f};1.000"
 
 # ── Dithering ─────────────────────────────────────────────────────────────
 
@@ -89,9 +93,7 @@ def process_photo(photo_path):
     w, h = img.size
     crop_h = int(h * 0.22)
     crop_w = int(crop_h * PORTRAIT_W / PORTRAIT_H)
-    # New photo: 1080x1440, face center at ~(495, 300)
     face_x, face_y = 495, 300
-    # Center horizontally, ~50px headroom above face
     left = max(0, face_x - crop_w // 2)
     top = max(0, face_y - 50)
     right = min(w, left + crop_w)
@@ -136,25 +138,17 @@ def logo_to_point_cloud(path_d, num_points, scale=1.0):
     return pts - pts.mean(axis=0)
 
 
-def optimal_transport(src, dst):
-    tree = spatial.KDTree(dst)
-    return dst[tree.query(src)[1]]
-
-
 def points_to_path(pts):
-    """Convert array of (x,y) points to SVG path string (horizontal runs for compactness)."""
-    # Group by integer y and sort by x for each row
+    """Convert array of (x,y) points to SVG path string (horizontal runs)."""
     by_y = {}
     for x, y in pts:
         yi = int(round(y))
         if yi not in by_y:
             by_y[yi] = []
         by_y[yi].append(int(round(x)))
-    
     parts = []
     for y in sorted(by_y.keys()):
         xs = sorted(set(by_y[y]))
-        # Merge consecutive x into runs
         runs = []
         start = xs[0]
         end = xs[0]
@@ -203,46 +197,85 @@ def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def build_portrait_layer(dots, color):
-    """Build portrait dots as static paths (no SMIL animation, CSS handles the fade)."""
+def build_portrait_clusters(dots, color):
+    """Build portrait dots as ~100 clusters, each with animateTransform.
+    During logo phases, clusters scatter away from center. 
+    During portrait phase, they return to form the face."""
     h, w = dots.shape
     coords = [(x, y) for y in range(h) for x in range(w) if dots[y, x]]
     positions = np.array(coords, dtype=np.float64)
     total = len(coords)
     
-    # 30 drift bands with per-dot noise
-    noise = np.random.RandomState(42).normal(0, 4.0, positions.shape)
+    np.random.seed(42)
+    noise = np.random.RandomState(42).normal(0, 3.0, positions.shape)
     noisy = positions + noise
-    band_idx = np.clip((noisy[:, 0] / w * 0.5 + noisy[:, 1] / h * 0.5) * N_BANDS, 0, N_BANDS - 1).astype(int)
-    bands = {i: [] for i in range(N_BANDS)}
-    for i, b in enumerate(band_idx):
-        bands[b].append(i)
+    cluster_idx = np.clip((noisy[:, 0] / w * 0.5 + noisy[:, 1] / h * 0.5) * N_CLUSTERS, 0, N_CLUSTERS - 1).astype(int)
+    clusters = {i: [] for i in range(N_CLUSTERS)}
+    for i, c in enumerate(cluster_idx):
+        clusters[c].append(i)
     
     parts = []
-    for bi in range(N_BANDS):
-        idxs = bands.get(bi, [])
+    for ci in range(N_CLUSTERS):
+        idxs = clusters.get(ci, [])
         if not idxs:
             continue
+        # Compute cluster center
         cx, cy = positions[idxs].mean(axis=0)
-        dx = (150 - cx) * 0.42
-        dy = (170 - cy) * 0.42
+        # Random scatter direction for logo phases
+        scatter_angle = np.random.RandomState(ci + 100).uniform(0, 2 * np.pi)
+        scatter_dist = np.random.RandomState(ci + 200).uniform(80, 200)
+        dx = np.cos(scatter_angle) * scatter_dist
+        dy = np.sin(scatter_angle) * scatter_dist
+        
         pts = [(coords[idx][0], coords[idx][1]) for idx in idxs]
         d = points_to_path(pts)
-        # Use CSS transition for GPU-accelerated drift
-        # The .drift class applies a CSS animation that translates the group
+        
+        # SMIL animateTransform: 9 keyframes
+        # 0:0 0 (portrait), 1:0 0, 2-7:dx dy (scatter), 8:0 0 (return)
+        val_str = f"0 0;0 0;{dx:.1f} {dy:.1f};{dx:.1f} {dy:.1f};{dx:.1f} {dy:.1f};{dx:.1f} {dy:.1f};{dx:.1f} {dy:.1f};{dx:.1f} {dy:.1f};0 0"
+        
         parts.append(
-            f'<g class="db{bi}">'
+            f'<g>'
+            f'<animateTransform attributeName="transform" type="translate" '
+            f'values="{val_str}" '
+            f'keyTimes="{KT}" '
+            f'dur="{LOOP}s" repeatCount="indefinite" '
+            f'calcMode="spline" '
+            f'keySplines="0.4 0 0.6 1;0.4 0 0.6 1;0 0 1 1;0 0 1 1;0 0 1 1;0 0 1 1;0.4 0 0.6 1;0.4 0 0.6 1"/>'
             f'<path d="{esc(d)}" '
             f'stroke="{color}" stroke-width="{DOT_SIZE}" '
             f'stroke-linecap="square" fill="none" '
             f'shape-rendering="crispEdges"/>'
             f'</g>'
         )
-    return "".join(parts), bands, coords, positions
+    return "".join(parts)
+
+
+def build_logo_paths(color):
+    """Build 3 static logo paths (Flutter, Python, Next.js) as SVG paths.
+    Cross-faded via CSS keyframes."""
+    logos = load_logo_paths()
+    logo_pts = []
+    for name, path_d in logos:
+        pts = logo_to_point_cloud(path_d, 400, scale=min(PORTRAIT_W, PORTRAIT_H) * 0.3)
+        pts[:, 0] += PORTRAIT_W // 2
+        pts[:, 1] += PORTRAIT_H // 2
+        logo_pts.append(pts)
+    
+    r = DOT_SIZE * 0.7
+    parts = []
+    for i, pts in enumerate(logo_pts):
+        d = points_to_path([(int(round(x)), int(round(y))) for x, y in pts])
+        parts.append(
+            f'<path d="{esc(d)}" class="l{i}" '
+            f'stroke="{color}" stroke-width="{r}" fill="none" '
+            f'stroke-linecap="round" shape-rendering="crispEdges"/>'
+        )
+    return "".join(parts)
 
 
 def build_intro_animation(dots, color):
-    """Simple intro fade-in using CSS animation."""
+    """Simple intro fade-in."""
     h, w = dots.shape
     coords = [(x, y) for y in range(h) for x in range(w) if dots[y, x]]
     indices = list(range(len(coords)))
@@ -251,7 +284,6 @@ def build_intro_animation(dots, color):
     n_groups = 30
     size = len(indices) // n_groups
     groups = [indices[i:i+size] for i in range(0, len(indices), size)]
-    
     parts = []
     for gi in range(min(n_groups, len(groups))):
         idxs = groups[gi]
@@ -260,62 +292,13 @@ def build_intro_animation(dots, color):
         pts = [(coords[idx][0], coords[idx][1]) for idx in idxs]
         d = points_to_path(pts)
         stagger = random.randint(0, 1500)
+        dur = random.randint(200, 400)
         parts.append(
             f'<path d="{esc(d)}" class="ig{gi}" '
             f'stroke="{color}" stroke-width="{DOT_SIZE}" '
             f'stroke-linecap="square" fill="none" '
             f'shape-rendering="crispEdges" '
-            f'style="opacity:0;animation:introIn{gi} {random.randint(200,400)}ms {stagger}ms forwards"/>'
-        )
-    return "".join(parts)
-
-
-def build_travellers(color):
-    """Build travellers as 4 static paths (portrait + 3 logos) with CSS cross-fade.
-    No SMIL animations — uses CSS opacity transitions on layers."""
-    logos = load_logo_paths()
-    logo_pts = []
-    for name, path_d in logos:
-        pts = logo_to_point_cloud(path_d, N_TRAVELLERS, scale=min(PORTRAIT_W, PORTRAIT_H) * 0.3)
-        pts[:, 0] += PORTRAIT_W // 2
-        pts[:, 1] += PORTRAIT_H // 2
-        logo_pts.append(pts)
-    
-    np.random.seed(123)
-    starts = np.column_stack([
-        np.random.randint(5, PORTRAIT_W - 5, N_TRAVELLERS),
-        np.random.randint(5, PORTRAIT_H - 5, N_TRAVELLERS),
-    ]).astype(np.float64)
-    
-    matched = [optimal_transport(starts, pts) for pts in logo_pts]
-    
-    # Build 4 static paths: portrait position, Flutter, Python, Next.js
-    paths = []
-    # Portrait position
-    d0 = points_to_path([(int(round(x)), int(round(y))) for x, y in starts])
-    paths.append(d0)
-    for pts in matched:
-        d = points_to_path([(int(round(x)), int(round(y))) for x, y in pts])
-        paths.append(d)
-    
-    # Render as layered paths with CSS cross-fade animation
-    # Layer 0 (portrait): visible during portrait phase
-    # Layer 1 (Flutter): visible during Flutter phase
-    # Layer 2 (Python): visible during Python phase
-    # Layer 3 (Next.js): visible during Next.js phase
-    
-    r = DOT_SIZE * 0.7
-    parts = []
-    parts.append(
-        f'<path d="{esc(paths[0])}" class="tl0" '
-        f'stroke="{color}" stroke-width="{r}" fill="none" '
-        f'stroke-linecap="round" shape-rendering="crispEdges"/>'
-    )
-    for i in range(1, 4):
-        parts.append(
-            f'<path d="{esc(paths[i])}" class="tl{i}" '
-            f'stroke="{color}" stroke-width="{r}" fill="none" '
-            f'stroke-linecap="round" shape-rendering="crispEdges"/>'
+            f'style="opacity:0;animation:introIn{gi} {dur}ms {stagger}ms forwards"/>'
         )
     return "".join(parts)
 
@@ -328,13 +311,13 @@ def build_info_panel(data, is_dark=True):
     ls = 23
     parts = []
     parts.append(
-        f'<text x="0" y="{y}" font-family="Menlo,Consolas,monospace" '
+        f'<text x="0" y="{y}" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" '
         f'font-size="13" fill="{ch}" font-weight="bold">SYSTEM.INFO</text>')
     y += ls + 10
     parts.append(
         f'<rect x="0" y="{y-10}" width="42" height="16" rx="3" '
         f'fill="none" stroke="#FF3B30" stroke-width="1.5"/>'
-        f'<text x="21" y="{y+1}" font-family="Menlo,Consolas,monospace" '
+        f'<text x="21" y="{y+1}" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" '
         f'font-size="12" fill="#FF3B30" text-anchor="middle" font-weight="bold">LIVE</text>'
         f'<circle cx="50" cy="{y-2}" r="3" fill="#FF3B30">'
         f'<animate attributeName="opacity" values="1;0.2;1" dur="1.5s" repeatCount="indefinite"/>'
@@ -343,7 +326,7 @@ def build_info_panel(data, is_dark=True):
     parts.append(
         f'<rect x="0" y="{y-12}" width="160" height="22" rx="11" '
         f'fill="{ch}" opacity="0.2"/>'
-        f'<text x="80" y="{y+3}" font-family="Menlo,Consolas,monospace" '
+        f'<text x="80" y="{y+3}" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" '
         f'font-size="14" fill="{ch}" text-anchor="middle" font-weight="bold">Arnost55</text>')
     y += ls + 15
     parts.append(
@@ -356,7 +339,7 @@ def build_info_panel(data, is_dark=True):
         ld = max(0, int((PANEL_W - len(lt)*8 - len(vt)*8 - 20) / 12))
         line = f'{lt}{" " + "." * ld + " "}{vt}'
         parts.append(
-            f'<text x="0" y="{y}" font-family="Menlo,Consolas,monospace" '
+            f'<text x="0" y="{y}" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" '
             f'font-size="{fs}" fill="{tc}" '
             f'textLength="{PANEL_W}" lengthAdjust="spacingAndGlyphs">{esc(line)}</text>')
         y += ls
@@ -365,7 +348,7 @@ def build_info_panel(data, is_dark=True):
 
 def build_terminal_border(is_dark=True):
     ch = PALETTE["ui_chrome_dark"] if is_dark else PALETTE["ui_chrome_light"]
-    bg = PALETTE["bg"] if is_dark else "#F0F0F0"
+    bg = PALETTE["bg"] if is_dark else PALETTE["bg_light"]
     return (
         f'<rect x="0" y="0" width="{CANVAS_W}" height="{CANVAS_H}" '
         f'fill="{bg}" rx="12" stroke="{ch}" stroke-width="2"/>'
@@ -374,7 +357,7 @@ def build_terminal_border(is_dark=True):
         f'<circle cx="12" cy="18" r="6" fill="#FF5F56" opacity="0.8"/>'
         f'<circle cx="32" cy="18" r="6" fill="#FFBD2E" opacity="0.8"/>'
         f'<circle cx="52" cy="18" r="6" fill="#27C93F" opacity="0.8"/>'
-        f'<text x="{CANVAS_W//2}" y="24" font-family="Menlo,Consolas,monospace" '
+        f'<text x="{CANVAS_W//2}" y="24" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" '
         f'font-size="13" fill="{ch}" text-anchor="middle" opacity="0.8">'
         f'profile.sh --live</text>'
     )
@@ -388,7 +371,7 @@ def build_portrait_frame(is_dark=True):
         f'<rect x="15" y="50" width="{pw}" height="{ph}" '
         f'fill="none" stroke="{ch}" stroke-width="1.5" rx="6"/>'
         f'<text x="{15 + pw//2}" y="{50 + ph - 8}" '
-        f'font-family="Menlo,Consolas,monospace" font-size="11" '
+        f'font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" '
         f'fill="{ch}" text-anchor="middle" opacity="0.6">VISUAL.MAP</text>'
     ), 15 + 10, 50 + 15
 
@@ -398,118 +381,68 @@ def build_portrait_frame(is_dark=True):
 def generate_banner(dots, is_dark=True):
     ch = PALETTE["ui_chrome_dark"] if is_dark else PALETTE["ui_chrome_light"]
     color = PALETTE["portrait_dark"] if is_dark else PALETTE["portrait_light"]
-    bg = PALETTE["bg"] if is_dark else "#F0F0F0"
-
-    # Build layers
-    intro = build_intro_animation(dots, color)
-    portrait, bands, coords, positions = build_portrait_layer(dots, color)
-    travellers = build_travellers(color)
-
-    frame_svg, fx, fy = build_portrait_frame(is_dark)
-
-    # Generate CSS for ALL animations
-    # Drift bands: CSS keyframes for transform (GPU-accelerated)
-    # Portrait fade: overlay rect with SMIL
-    # Travellers: CSS keyframes for cross-fade
-    # Intro: individual CSS keyframes
+    bg = PALETTE["bg"] if is_dark else PALETTE["bg_light"]
     
+    intro = build_intro_animation(dots, color)
+    clusters = build_portrait_clusters(dots, color)
+    logos = build_logo_paths(color)
+    
+    frame_svg, fx, fy = build_portrait_frame(is_dark)
+    
+    # CSS for logo cross-fade and intro
     p1_pct = int(P1 * 100)
     p2_pct = int(P2 * 100)
-    p7_pct = int(P7 * 100)
     p3_pct = int(P3 * 100)
     p4_pct = int(P4 * 100)
     p5_pct = int(P5 * 100)
     p6_pct = int(P6 * 100)
+    p7_pct = int(P7 * 100)
     
-    # Drift animation for each band
-    drift_css = []
-    for bi in range(N_BANDS):
-        idxs = bands.get(bi, [])
-        if not idxs:
-            continue
-        cx, cy = positions[idxs].mean(axis=0)
-        dx = (150 - cx) * 0.42
-        dy = (170 - cy) * 0.42
-        # Drift during portrait phase, return during transition
-        drift_css.append(
-            f'@keyframes db{bi} {{'
-            f'0%{{transform:translate(0,0)}}'
-            f'{p1_pct//2}%{{transform:translate({dx:.1f}px,{dy:.1f}px)}}'
-            f'{p1_pct}%{{transform:translate(0,0)}}'
-            f'100%{{transform:translate(0,0)}}'
-            f'}}'
-        )
-    drift_css_str = "".join(drift_css)
-    
-    # Intro keyframes
-    intro_css = []
-    for gi in range(30):
-        intro_css.append(
-            f'@keyframes introIn{gi} {{to{{opacity:1}}}}'
-        )
-    intro_css_str = "".join(intro_css)
-    
-    # Traveller cross-fade keyframes
-    # 4 layers: tl0 (portrait), tl1 (Flutter), tl2 (Python), tl3 (Next.js)
-    # Each layer is hidden during portrait by default, fades in for its phase
-    tl_css = (
-        f'@keyframes tl0f {{'
-        f'0%{{opacity:1}}{p1_pct}%{{opacity:1}}'
-        f'{p2_pct}%{{opacity:0}}{p7_pct}%{{opacity:0}}'
-        f'100%{{opacity:1}}'
-        f'}}'
-        f'@keyframes tl1f {{'
+    # Logo cross-fade: each logo is visible only during its phase
+    # l0 = Flutter (visible P2-P3), l1 = Python (P4-P5), l2 = Next.js (P6-P7)
+    css = (
+        f'<style>'
+        f'@keyframes l0f {{'
         f'0%{{opacity:0}}{p1_pct}%{{opacity:0}}'
         f'{p2_pct}%{{opacity:1}}{p3_pct}%{{opacity:1}}'
         f'{p4_pct}%{{opacity:0}}100%{{opacity:0}}'
         f'}}'
-        f'@keyframes tl2f {{'
+        f'@keyframes l1f {{'
         f'0%{{opacity:0}}{p3_pct}%{{opacity:0}}'
         f'{p4_pct}%{{opacity:1}}{p5_pct}%{{opacity:1}}'
         f'{p6_pct}%{{opacity:0}}100%{{opacity:0}}'
         f'}}'
-        f'@keyframes tl3f {{'
+        f'@keyframes l2f {{'
         f'0%{{opacity:0}}{p5_pct}%{{opacity:0}}'
         f'{p6_pct}%{{opacity:1}}{p7_pct}%{{opacity:1}}'
         f'100%{{opacity:0}}'
         f'}}'
+        f'.l0{{animation:l0f {LOOP}s ease-in-out infinite}}'
+        f'.l1{{animation:l1f {LOOP}s ease-in-out infinite}}'
+        f'.l2{{animation:l2f {LOOP}s ease-in-out infinite}}'
+        # Intro keyframes
+        + "".join(f'@keyframes introIn{gi}{{to{{opacity:1}}}}' for gi in range(30))
+        + "".join(f'.ig{gi}{{}}' for gi in range(30))
+        + f'</style>'
     )
     
-    # Drift band classes
-    drift_classes = []
-    for bi in range(N_BANDS):
-        drift_classes.append(f'.db{bi}{{animation:db{bi} {LOOP}s ease-in-out infinite}}')
-    drift_classes_str = "".join(drift_classes)
-    
-    # Intro classes
-    intro_classes = []
-    for gi in range(30):
-        intro_classes.append(f'.ig{gi}{{}}')
-    intro_classes_str = "".join(intro_classes)
-    
-    # Traveller classes
-    tl_classes = '.tl0{animation:tl0f 14.2s ease-in-out infinite}.tl1{animation:tl1f 14.2s ease-in-out infinite}.tl2{animation:tl2f 14.2s ease-in-out infinite}.tl3{animation:tl3f 14.2s ease-in-out infinite}'
-    
-    css = f'<style>{drift_css_str}{intro_css_str}{tl_css}{drift_classes_str}{intro_classes_str}{tl_classes}</style>'
-    
-    # Overlay rect (SMIL — single element, no perf impact)
-    p1_kt = f"{P1:.4f}"
-    p2_kt = f"{P2:.4f}"
-    p7_kt = f"{P7:.4f}"
+    # Overlay rect: hides portrait during logo phases (SMIL)
     overlay = (
         f'<rect x="0" y="0" width="{PORTRAIT_W}" height="{PORTRAIT_H}" '
         f'fill="{bg}" rx="4">'
         f'<animate attributeName="opacity" '
         f'values="0;0;1;1;0" '
-        f'keyTimes="0;{p1_kt};{p2_kt};{p7_kt};{P8:.4f}" '
+        f'keyTimes="0;{P1:.4f};{P2:.4f};{P7:.4f};{P8:.4f}" '
         f'dur="{LOOP}s" repeatCount="indefinite"/>'
         f'</rect>'
     )
-
+    
     svg = (
         f'<svg xmlns="http://www.w3.org/2000/svg" '
         f'width="{CANVAS_W}" height="{CANVAS_H}" '
-        f'viewBox="0 0 {CANVAS_W} {CANVAS_H}">\n'
+        f'viewBox="0 0 {CANVAS_W} {CANVAS_H}" '
+        f'font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" '
+        f'role="img" aria-label="Arnost Dobrucky — profile.sh --live">\n'
         f'{css}\n'
         f'{build_terminal_border(is_dark)}\n'
         f'{frame_svg}\n'
@@ -519,9 +452,9 @@ def generate_banner(dots, is_dark=True):
         f'  </clipPath>\n'
         f'  <g clip-path="url(#pc-{"d" if is_dark else "l"})">\n'
         f'    <!-- Intro -->\n{intro}\n'
-        f'    <!-- Portrait drift bands -->\n{portrait}\n'
-        f'    <!-- Overlay -->\n{overlay}\n'
-        f'    <!-- Travellers -->\n{travellers}\n'
+        f'    <!-- Portrait clusters (scatter during logo phases) -->\n{clusters}\n'
+        f'    <!-- Overlay (hides portrait during logos) -->\n{overlay}\n'
+        f'    <!-- Logos (cross-faded) -->\n{logos}\n'
         f'  </g>\n'
         f'</g>\n'
         f'<g transform="translate({PANEL_X}, 45)">\n'

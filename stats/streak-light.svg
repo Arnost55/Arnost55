@@ -3,7 +3,7 @@
 <text x="250" y="40" font-family="Segoe UI,sans-serif" font-size="22" font-weight="700" fill="#0891B2" text-anchor="middle">Contribution Overview</text>
 <line x1="25" y1="55" x2="475" y2="55" stroke="#0891B2" stroke-width="0.5" opacity="0.3"/>
 <g transform="translate(83, 130)">
-  <text font-family="Segoe UI,sans-serif" font-size="40" font-weight="800" fill="#10B981" text-anchor="middle">13</text>
+  <text font-family="Segoe UI,sans-serif" font-size="40" font-weight="800" fill="#10B981" text-anchor="middle">14</text>
   <text y="28" font-family="Segoe UI,sans-serif" font-size="16" fill="#7C3AED" text-anchor="middle">Repositories</text>
 </g>
 <g transform="translate(250, 130)">

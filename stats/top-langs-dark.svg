@@ -5,17 +5,17 @@
 <g transform="translate(25, 80)">
   <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">TypeScript</text>
   <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
-  <rect x="200" y="-4" width="187.14761559554188" height="18" rx="4" fill="#22D3EE"/>
+  <rect x="200" y="-4" width="187.14713523741804" height="18" rx="4" fill="#22D3EE"/>
   <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">62.4%</text>
 </g><g transform="translate(25, 108)">
   <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">HTML</text>
   <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
-  <rect x="200" y="-4" width="59.34440879601799" height="18" rx="4" fill="#A78BFA"/>
+  <rect x="200" y="-4" width="59.344256474713845" height="18" rx="4" fill="#A78BFA"/>
   <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">19.8%</text>
 </g><g transform="translate(25, 136)">
   <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">JavaScript</text>
   <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
-  <rect x="200" y="-4" width="19.815044176492567" height="18" rx="4" fill="#10B981"/>
+  <rect x="200" y="-4" width="19.815763336708876" height="18" rx="4" fill="#10B981"/>
   <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">6.6%</text>
 </g><g transform="translate(25, 164)">
   <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">CSS</text>

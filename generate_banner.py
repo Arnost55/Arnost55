@@ -19,7 +19,7 @@ from scipy import spatial
 # ── Config ─────────────────────────────────────────────────────────────────
 
 CANVAS_W = 1180
-CANVAS_H = 610
+CANVAS_H = 700
 PORTRAIT_W = 300
 PORTRAIT_H = 340
 PANEL_X = int(CANVAS_W * 0.40)
@@ -306,29 +306,29 @@ def build_intro_animation(dots, color):
 def build_info_panel(data, is_dark=True):
     ch = PALETTE["ui_chrome_dark"] if is_dark else PALETTE["ui_chrome_light"]
     tc = "#E0E0E0" if is_dark else "#1A1A2E"
-    y = 40
-    fs = 14
-    ls = 23
+    y = 30
+    fs = 18
+    ls = 32
     parts = []
     parts.append(
         f'<text x="0" y="{y}" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" '
-        f'font-size="13" fill="{ch}" font-weight="bold">SYSTEM.INFO</text>')
-    y += ls + 10
+        f'font-size="18" fill="{ch}" font-weight="bold">SYSTEM.INFO</text>')
+    y += ls + 8
     parts.append(
-        f'<rect x="0" y="{y-10}" width="42" height="16" rx="3" '
-        f'fill="none" stroke="#FF3B30" stroke-width="1.5"/>'
-        f'<text x="21" y="{y+1}" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" '
-        f'font-size="12" fill="#FF3B30" text-anchor="middle" font-weight="bold">LIVE</text>'
-        f'<circle cx="50" cy="{y-2}" r="3" fill="#FF3B30">'
+        f'<rect x="0" y="{y-12}" width="58" height="22" rx="4" '
+        f'fill="none" stroke="#FF3B30" stroke-width="2"/>'
+        f'<text x="29" y="{y+2}" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" '
+        f'font-size="16" fill="#FF3B30" text-anchor="middle" font-weight="bold">LIVE</text>'
+        f'<circle cx="68" cy="{y-3}" r="4" fill="#FF3B30">'
         f'<animate attributeName="opacity" values="1;0.2;1" dur="1.5s" repeatCount="indefinite"/>'
         f'</circle>')
     y += ls + 5
     parts.append(
-        f'<rect x="0" y="{y-12}" width="160" height="22" rx="11" '
+        f'<rect x="0" y="{y-14}" width="180" height="28" rx="14" '
         f'fill="{ch}" opacity="0.2"/>'
-        f'<text x="80" y="{y+3}" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" '
-        f'font-size="14" fill="{ch}" text-anchor="middle" font-weight="bold">Arnost55</text>')
-    y += ls + 15
+        f'<text x="90" y="{y+4}" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" '
+        f'font-size="18" fill="{ch}" text-anchor="middle" font-weight="bold">Arnost55</text>')
+    y += ls + 12
     parts.append(
         f'<line x1="0" y1="{y}" x2="{PANEL_W}" y2="{y}" '
         f'stroke="{ch}" stroke-width="0.5" opacity="0.3"/>')
@@ -336,7 +336,9 @@ def build_info_panel(data, is_dark=True):
     for label, value in data:
         lt = f"  {label}"
         vt = f" {esc(value)}"
-        ld = max(0, int((PANEL_W - len(lt)*8 - len(vt)*8 - 20) / 12))
+        cw = 10.0  # char width at 18px monospace
+        available = PANEL_W - len(lt)*cw - len(vt)*cw - 20
+        ld = max(0, int(available / (cw * 1.5)))
         line = f'{lt}{" " + "." * ld + " "}{vt}'
         parts.append(
             f'<text x="0" y="{y}" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" '
@@ -358,7 +360,7 @@ def build_terminal_border(is_dark=True):
         f'<circle cx="32" cy="18" r="6" fill="#FFBD2E" opacity="0.8"/>'
         f'<circle cx="52" cy="18" r="6" fill="#27C93F" opacity="0.8"/>'
         f'<text x="{CANVAS_W//2}" y="24" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" '
-        f'font-size="13" fill="{ch}" text-anchor="middle" opacity="0.8">'
+        f'font-size="16" fill="{ch}" text-anchor="middle" opacity="0.8">'
         f'profile.sh --live</text>'
     )
 
@@ -371,7 +373,7 @@ def build_portrait_frame(is_dark=True):
         f'<rect x="15" y="50" width="{pw}" height="{ph}" '
         f'fill="none" stroke="{ch}" stroke-width="1.5" rx="6"/>'
         f'<text x="{15 + pw//2}" y="{50 + ph - 8}" '
-        f'font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" '
+        f'font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="13" '
         f'fill="{ch}" text-anchor="middle" opacity="0.6">VISUAL.MAP</text>'
     ), 15 + 10, 50 + 15
 
@@ -457,7 +459,7 @@ def generate_banner(dots, is_dark=True):
         f'    <!-- Logos (cross-faded) -->\n{logos}\n'
         f'  </g>\n'
         f'</g>\n'
-        f'<g transform="translate({PANEL_X}, 45)">\n'
+        f'<g transform="translate({PANEL_X}, 35)">\n'
         f'{build_info_panel(build_info_data(), is_dark)}\n'
         f'</g>\n'
         f'</svg>'

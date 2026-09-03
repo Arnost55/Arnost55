@@ -4,7 +4,7 @@
 <line x1="25" y1="55" x2="475" y2="55" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
 <g transform="translate(35, 85)">
   <text font-family="Segoe UI,sans-serif" font-size="18" fill="#A78BFA">Repos:</text>
-  <text x="180" font-family="Segoe UI,sans-serif" font-size="18" fill="#E0E0E0" font-weight="600">16</text>
+  <text x="180" font-family="Segoe UI,sans-serif" font-size="18" fill="#E0E0E0" font-weight="600">18</text>
 </g>
 <g transform="translate(35, 120)">
   <text font-family="Segoe UI,sans-serif" font-size="18" fill="#A78BFA">Stars:</text>
@@ -16,11 +16,11 @@
 </g>
 <g transform="translate(280, 85)">
   <text font-family="Segoe UI,sans-serif" font-size="18" fill="#A78BFA">Followers:</text>
-  <text x="180" font-family="Segoe UI,sans-serif" font-size="18" fill="#E0E0E0" font-weight="600">1</text>
+  <text x="180" font-family="Segoe UI,sans-serif" font-size="18" fill="#E0E0E0" font-weight="600">0</text>
 </g>
 <g transform="translate(280, 120)">
   <text font-family="Segoe UI,sans-serif" font-size="18" fill="#A78BFA">Following:</text>
-  <text x="180" font-family="Segoe UI,sans-serif" font-size="18" fill="#E0E0E0" font-weight="600">9</text>
+  <text x="180" font-family="Segoe UI,sans-serif" font-size="18" fill="#E0E0E0" font-weight="600">10</text>
 </g>
 <text x="475" y="265" font-family="Segoe UI,sans-serif" font-size="11" fill="#22D3EE" text-anchor="end" opacity="0.5">Updated 2026-09-03</text>
 </svg>

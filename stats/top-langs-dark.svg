@@ -5,48 +5,48 @@
 <g transform="translate(25, 80)">
   <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">TypeScript</text>
   <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
-  <rect x="200" y="-4" width="185.86758185150907" height="18" rx="4" fill="#22D3EE"/>
-  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">62.0%</text>
+  <rect x="200" y="-4" width="201.83530456479332" height="18" rx="4" fill="#22D3EE"/>
+  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">67.3%</text>
 </g><g transform="translate(25, 108)">
   <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">HTML</text>
   <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
-  <rect x="200" y="-4" width="58.75692323805178" height="18" rx="4" fill="#A78BFA"/>
-  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">19.6%</text>
+  <rect x="200" y="-4" width="63.88383448633887" height="18" rx="4" fill="#A78BFA"/>
+  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">21.3%</text>
 </g><g transform="translate(25, 136)">
-  <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">JavaScript</text>
-  <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
-  <rect x="200" y="-4" width="19.624305520852776" height="18" rx="4" fill="#10B981"/>
-  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">6.5%</text>
-</g><g transform="translate(25, 164)">
   <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">CSS</text>
   <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
-  <rect x="200" y="-4" width="15" height="18" rx="4" fill="#F59E0B"/>
-  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">4.8%</text>
-</g><g transform="translate(25, 192)">
-  <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">Rust</text>
+  <rect x="200" y="-4" width="15.702872608861917" height="18" rx="4" fill="#10B981"/>
+  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">5.2%</text>
+</g><g transform="translate(25, 164)">
+  <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">JavaScript</text>
   <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
-  <rect x="200" y="-4" width="15" height="18" rx="4" fill="#EF4444"/>
-  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">2.7%</text>
-</g><g transform="translate(25, 220)">
+  <rect x="200" y="-4" width="15" height="18" rx="4" fill="#F59E0B"/>
+  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">1.9%</text>
+</g><g transform="translate(25, 192)">
   <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">Python</text>
   <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
-  <rect x="200" y="-4" width="15" height="18" rx="4" fill="#8B5CF6"/>
-  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">2.1%</text>
-</g><g transform="translate(25, 248)">
+  <rect x="200" y="-4" width="15" height="18" rx="4" fill="#EF4444"/>
+  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">1.8%</text>
+</g><g transform="translate(25, 220)">
   <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">Astro</text>
   <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
-  <rect x="200" y="-4" width="15" height="18" rx="4" fill="#EC4899"/>
-  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">1.4%</text>
-</g><g transform="translate(25, 276)">
-  <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">Shell</text>
-  <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
-  <rect x="200" y="-4" width="15" height="18" rx="4" fill="#14B8A6"/>
-  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">0.4%</text>
-</g><g transform="translate(25, 304)">
+  <rect x="200" y="-4" width="15" height="18" rx="4" fill="#8B5CF6"/>
+  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">1.5%</text>
+</g><g transform="translate(25, 248)">
   <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">Kotlin</text>
   <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
-  <rect x="200" y="-4" width="15" height="18" rx="4" fill="#F97316"/>
+  <rect x="200" y="-4" width="15" height="18" rx="4" fill="#EC4899"/>
   <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">0.3%</text>
+</g><g transform="translate(25, 276)">
+  <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">Rust</text>
+  <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
+  <rect x="200" y="-4" width="15" height="18" rx="4" fill="#14B8A6"/>
+  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">0.3%</text>
+</g><g transform="translate(25, 304)">
+  <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">Shell</text>
+  <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>
+  <rect x="200" y="-4" width="15" height="18" rx="4" fill="#F97316"/>
+  <text x="465" font-family="Segoe UI,sans-serif" font-size="15" fill="#E0E0E0" text-anchor="end">0.2%</text>
 </g><g transform="translate(25, 332)">
   <text font-family="Segoe UI,sans-serif" font-size="16" fill="#E0E0E0">C#</text>
   <rect x="200" y="-4" width="250" height="18" rx="4" fill="#0A101F" stroke="#22D3EE" stroke-width="0.5" opacity="0.3"/>

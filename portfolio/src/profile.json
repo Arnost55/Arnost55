@@ -1,0 +1,45 @@
+{
+  "name": "Arnošt",
+  "handle": "Arnost55",
+  "tagline": "I build software that makes work easier.",
+  "intro": "Software development · Automation · Cloud infrastructure · Security",
+  "location": "Slovakia",
+  "projects": [
+    {
+      "name": "HelpeX",
+      "description": "Permission-focused automation and security platform",
+      "tags": [
+        "Automation",
+        "Security",
+        "Integrations"
+      ],
+      "status": "In development"
+    },
+    {
+      "name": "SocialFlow",
+      "description": "Social media automation for businesses and creators",
+      "tags": [
+        "TypeScript",
+        "Azure",
+        "PostgreSQL"
+      ],
+      "status": "In development"
+    }
+  ],
+  "skills": [
+    "TypeScript",
+    "JavaScript",
+    "Python",
+    "C#",
+    "Azure",
+    "Docker",
+    "PostgreSQL",
+    "Git",
+    "Linux"
+  ],
+  "links": {
+    "github": "https://github.com/Arnost55",
+    "linkedin": "https://linkedin.com/in/arnost-dobrucky",
+    "email": "mailto:arnika55@kernelkicks.dev"
+  }
+}

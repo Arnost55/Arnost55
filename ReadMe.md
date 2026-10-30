@@ -1,8 +1,12 @@
+<a href="https://arnost55.github.io/Arnost55/" title="Open interactive React portfolio">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="bnr-d.svg">
-  <source media="(prefers-color-scheme: light)" srcset="bnr-l.svg">
-  <img src="bnr-d.svg" alt="Arnošt — software developer" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="profile-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="profile-light.svg">
+  <img src="profile-dark.svg" alt="Arnošt portfolio preview — click to open website" width="100%">
 </picture>
+</a>
+
+<p align="center"><a href="https://arnost55.github.io/Arnost55/"><strong>🌐 Open interactive portfolio ↗</strong></a></p>
 
 <h1 align="center">Hi, I'm Arnošt 👋</h1>
 <p align="center"><strong>I build software that makes work easier.</strong></p>

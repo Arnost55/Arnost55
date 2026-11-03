@@ -41,6 +41,7 @@ export function Hero() {
         .to(".hero-title", { scale: .88, opacity: .08 }, .64)
         .to(".hero-reveal", { opacity: 1, y: 0 }, .68);
     });
+    /* Native mobile scrolling is more reliable without a scrubbed hero timeline.
     mm.add("(max-width: 768px)", () => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -57,6 +58,7 @@ export function Hero() {
         .to(".hero-meta", { y: -28, opacity: 0 }, .08)
         .to(".hero-title", { yPercent: -12, opacity: .2, scale: .94 }, .35);
     });
+    */
     return () => mm.revert();
   }, { scope: section });
 

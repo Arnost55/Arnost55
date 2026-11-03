@@ -11,7 +11,8 @@ export function SiteMotion({ children }: { children: React.ReactNode }) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Keep native touch scrolling on mobile: desktop retains cinematic scrub animations.
+    if (matchMedia("(prefers-reduced-motion: reduce), (max-width: 900px), (pointer: coarse)").matches) return;
 
     gsap.timeline({ scrollTrigger: { trigger: ".manifesto", start: "top 78%", end: "bottom 42%", scrub: 0.65 } })
       .fromTo(".manifesto .eyebrow", { y: 28, opacity: 0 }, { y: 0, opacity: 1 }, 0)

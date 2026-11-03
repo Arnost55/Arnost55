@@ -4,6 +4,7 @@ import { SocialFlow } from "@/components/SocialFlow";
 import { HelpeX } from "@/components/HelpeX";
 import { About } from "@/components/About";
 import { SiteMotion } from "@/components/SiteMotion";
+import { MobileNav } from "@/components/MobileNav";
 
 export default function Home() {
   return <SiteMotion>
@@ -12,6 +13,7 @@ export default function Home() {
       <a className="wordmark" href="#top" aria-label="Home"><span>AR</span>NOST</a>
       <nav aria-label="Primary navigation"><a href="#work">Work</a><a href="#about">About</a><a href="/life">Life</a><a href="/connect">Connect</a></nav>
       <a className="availability" href="#contact"><i /> Available for select work</a>
+      <MobileNav />
     </header>
     <Hero />
     <section className="manifesto" aria-label="Introduction">

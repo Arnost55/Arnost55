@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy portfolio to GitHub Pages
 
 on:
   push:
@@ -22,30 +22,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 11
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'pnpm'
+          cache: 'npm'
+          cache-dependency-path: portfolio-next/package-lock.json
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        working-directory: portfolio-next
+        run: npm ci
 
       - name: Build
-        run: pnpm run build
+        working-directory: portfolio-next
+        run: npm run build
 
       - name: Create CNAME file
-        run: echo "arnost.kernelkicks.dev" > ./dist/CNAME
+        run: echo "arnost.kernelkicks.dev" > ./portfolio-next/out/CNAME
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ./dist
+          path: ./portfolio-next/out
 
   deploy:
     environment:

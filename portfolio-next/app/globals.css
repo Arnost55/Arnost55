@@ -132,7 +132,7 @@ body{overflow-x:clip;touch-action:pan-y pinch-zoom}
  .site-header{height:76px;padding:0 5vw;gap:12px}
  .site-header .availability{margin-left:auto}
  .mobile-menu-toggle{display:flex;position:relative;z-index:32;flex:0 0 44px;width:44px;height:44px;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;cursor:pointer}
- .mobile-menu-panel{display:flex;position:fixed;inset:0;z-index:31;background:#090909;flex-direction:column;padding:calc(100px + env(safe-area-inset-top,0px)) 7vw calc(32px + env(safe-area-inset-bottom,0px));overflow-y:auto;overscroll-behavior:contain;visibility:hidden;opacity:0;pointer-events:none;transition:opacity .24s ease,visibility .24s ease}
+ .site-header .mobile-menu-panel{display:flex;position:fixed;inset:0;z-index:31;background:#090909;flex-direction:column;padding:calc(100px + env(safe-area-inset-top,0px)) 7vw calc(32px + env(safe-area-inset-bottom,0px));overflow-y:auto;overscroll-behavior:contain;visibility:hidden;opacity:0;pointer-events:none;transition:opacity .24s ease,visibility .24s ease}
  .mobile-menu-panel[data-open="true"]{visibility:visible;opacity:1;pointer-events:auto}
  .mobile-menu-panel a{display:flex;align-items:center;min-height:62px;border-bottom:1px solid rgba(255,255,255,.16);font-size:clamp(32px,9vw,64px);font-weight:900;letter-spacing:-.06em;text-transform:uppercase}
  .mobile-menu-panel a:hover,.mobile-menu-panel a:focus-visible{color:var(--red)}
